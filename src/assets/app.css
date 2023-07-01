@@ -1,0 +1,30 @@
+
+
+.segitiga{
+    height:0px;
+	width:0px;
+    border-bottom:solid 120px orange;
+	border-left:solid 80px transparent;
+	border-right:solid 80px transparent;
+}
+.custom-shape-divider-bottom-1688083698 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1688083698 svg {
+    position: relative;
+    display: block;
+    width: calc(153% + 1.3px);
+    height: 221px;
+    transform: rotateY(180deg);
+}
+
+.custom-shape-divider-bottom-1688083698 .shape-fill {
+    fill: #fcbf49;
+}
