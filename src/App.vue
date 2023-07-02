@@ -1,23 +1,19 @@
 <template>
   <!-- header -->
-  <header class="py-4 shadow-sm bg-secondary">
+  <header class="py-2 shadow-sm bg-secondary flex justify-center">
     <div class="container flex items-center justify-between">
       <router-link to="/">
-        <img :src="'/../img/logofeed.png'" alt="Logo" class="w-32">
+        <img :src="'/../img/logofeed.png'" alt="Logo" class=" w-32 ">
       </router-link>
 
-      <div class="w-full max-w-xl relative flex">
-        <span class="absolute left-4 top-3 text-lg text-gray-400">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </span>
-        <input type="text" name="search" id="search"
-          class="w-full border border-primary border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none hidden md:flex"
-          placeholder="search">
-        <button
-          class="bg-primary border border-primary text-white px-8 rounded-r-md hover:bg-transparent hover:text-primary transition hidden md:flex">Search</button>
+      <!-- Model Search -->
+      <div class=" hidden md:flex max-w-xl">
+        <search-modal  />
+
       </div>
 
       <div class="flex items-center space-x-4">
+
         <router-link :to="{ name: 'account.wishlist' }" v-if="config.wishlist"
           class="text-center text-gray-700 hover:text-primary transition relative">
           <div class="text-2xl">
@@ -52,7 +48,12 @@
         </router-link>
       </div>
     </div>
+
   </header>
+  <section class="flex md:hidden w-full">
+    <search-modal  />
+  </section>
+
   <!-- ./header -->
 
   <!-- navbar -->
@@ -96,11 +97,15 @@
 
       <div class="flex items-center justify-between flex-grow md:pl-12 py-5">
         <div class="flex items-center space-x-6 capitalize">
-          <router-link to="/" class="text-white text-sm md:text-base font-semibold hover:text-secondary transition">Home</router-link>
+          <router-link to="/"
+            class="text-white text-sm md:text-base font-semibold hover:text-secondary transition">Home</router-link>
           <router-link :to="{ name: 'shop' }"
             class="text-white text-sm md:text-base font-semibold hover:text-secondary transition">Belanja</router-link>
-          <router-link :to="{ name: 'about' }" class="text-white text-sm md:text-base font-semibold hover:text-secondary transition">Tentang Kami</router-link>
-          <a href="#" class="text-white text-sm md:text-base font-semibold hover:text-secondary transition">Kontak Kami</a>
+          <router-link :to="{ name: 'about' }"
+            class="text-white text-sm md:text-base font-semibold hover:text-secondary transition">Tentang
+            Kami</router-link>
+          <a href="#" class="text-white text-sm md:text-base font-semibold hover:text-secondary transition">Kontak
+            Kami</a>
         </div>
         <router-link :to="{ name: 'login' }" v-if="!loggedIn && config.user"
           class="text-white text-sm md:text-base font-semibold hover:text-secondary transition">Login</router-link>
@@ -133,7 +138,11 @@
 
 <script>
 import axios from 'axios';
+import SearchModal from './components/SearchModal.vue';
 export default {
+  components: {
+    SearchModal
+  },
   data() {
     return {
       User: [],
@@ -146,8 +155,10 @@ export default {
         wishlist: true,
         user: true,
       },
+      modalSearch: false,
     }
   },
+
   beforeCreate() {
     axios.get('http://temancoret.admin.oraclesip.my.id/api/config/product',)
       .then(res => {
@@ -194,7 +205,12 @@ export default {
 
           )
       }
+    },
+    showModalSearch(){
+      this.modalSearch = true;
+      console.log(this.modalSearch)
     }
+
   }
 }
 </script>

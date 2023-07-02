@@ -24,7 +24,8 @@
                 </div>
                 <div class="pt-4 pb-3 px-4" :class="item.stock > 0 ? '' : 'opacity-70 cursor-not-allowed'">
                     <a href="#">
-                        <h4 class="uppercase font-medium text-xs sm:text-sm md:text-xl mb-2 text-gray-800 hover:text-primary transition">
+                        <h4
+                            class="uppercase font-medium text-xs sm:text-sm md:text-xl mb-2 text-gray-800 hover:text-primary transition">
                             {{ item.name }}</h4>
                     </a>
                     <div class="flex items-baseline mb-1 space-x-2">
@@ -59,7 +60,8 @@
                     <img :src="item.galleriesdefault.photo" alt="product 1" class="w-auto h-36 object-cover">
                     <div class="pt-4 pb-3 px-4">
                         <a href="#">
-                            <h4 class="uppercase font-medium text-xs sm:text-sm md:text-xl mb-2 text-gray-800 hover:text-primary transition">
+                            <h4
+                                class="uppercase font-medium text-xs sm:text-sm md:text-xl mb-2 text-gray-800 hover:text-primary transition">
                                 {{ item.name }}</h4>
                         </a>
                         <div class="flex flex-col md:flex-row items-baseline mb-1 space-x-2">
@@ -78,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-                <div >
+                <div>
                     <div v-if="item.stock > 0"
                         class="relative inset-0 flex flex-row md:flex-col items-center justify-center gap-2 px-10 transition">
                         <router-link :to="{ name: 'detailproduct', params: { name: item.name, id: item.id } }"
@@ -99,8 +101,9 @@
                             <i class="fa-brands fa-whatsapp"></i>
                         </a>
                     </div>
-    
-                    <div v-else class="relative inset-0 flex flex-row md:flex-col items-center justify-center gap-2 px-10 transition">
+
+                    <div v-else
+                        class="relative inset-0 flex flex-row md:flex-col items-center justify-center gap-2 px-10 transition">
                         <a href="#"
                             class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs sm:text-sm md:text-base whitespace-nowrap opacity-70 cursor-not-allowed"
                             title="view product">
@@ -220,14 +223,14 @@
                     <dt class="mb-2 font-semibold leading-none text-gray-900 ">Category</dt>
                     <dd class="mb-4 font-light text-gray-500 sm:mb-5 ">{{ WaProduct.category }}</dd>
                 </dl>
-    
+
                 <div class="pb-4" v-for="(item, key) in parseJ(WaProduct.productdetails)" :key="item" :index="key">
                     <div>
                         <h3 class="text-sm text-gray-800 mb-3 uppercase font-medium">{{ key }}</h3>
                         <div class="flex items-center gap-2">
                             <div class="size-selector" v-for="col in item" :key="col">
-                                <input type="radio" :name="key" @click="checkboxClick(key, $event)" :id="key + '-' + col.value"
-                                    class="hidden" :value="col.value">
+                                <input type="radio" :name="key" @click="checkboxClick(key, $event)"
+                                    :id="key + '-' + col.value" class="hidden" :value="col.value">
                                 <label :for="key + '-' + col.value"
                                     class="text-xs border border-gray-200 rounded-sm h-full w-full flex items-center justify-center cursor-pointer shadow-sm text-gray-600 px-2 py-1.5 ">{{
                                         col.value }}</label>
@@ -237,7 +240,7 @@
                 </div>
                 <div class="flex justify-between items-center">
                     <div class="flex items-center space-x-3 sm:space-x-4">
-                        <button  type="button"
+                        <button type="button" @click="addToWa(WaProduct)"
                             class="text-white inline-flex bg-primary items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-primary-600 hover:bg-primary-700 focus:ring-primary-800">
                             <svg aria-hidden="true" class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -318,6 +321,7 @@ export default {
             })
     },
     mounted() {
+        // console.log(this.$route)
     },
     methods: {
         parseJ(data) {
@@ -440,6 +444,25 @@ export default {
                 this.$router.push({ name: 'login' })
             }
         },
+        addToWa(item) {
+            console.log(this.resultItem)
+            const enter = '%3A%0A';
+            const spasi = '%20';
+            // const koma = '%3A';
+            const link = 'http://localhost:8080/View/' + item.name + '/' + item.id
+            var text = `Produk${enter + spasi} Nama${spasi}Produk=${item.name}`
+            text += `${enter + spasi} Harga${spasi}Produk=${item.price}`
+            text += `${enter + spasi} Detail${enter}`
+
+            for (var key in this.resultItem) {
+                text += spasi + spasi + key + '=' + this.resultItem[key] + '%0A'
+            }
+            text += `${link}`
+
+
+            const wa = "https://api.whatsapp.com/send?phone=6281524269051&text=" + text + "";
+            window.location.href = wa;
+        }
     },
 
 }
