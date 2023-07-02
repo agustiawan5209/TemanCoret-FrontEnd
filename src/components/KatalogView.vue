@@ -3,8 +3,8 @@
         <div class="sm:-mx-4 flex flex-row items-center justify-center gap-2 lg:gap-7 relative">
           <div class=" w-1/3 md:w-1/4 px-0 xl:w-3/12 relative h-max sm:shadow-lg sm:mb-20">
             <div class=" rounded-lg relative block h-max sm:h-72" >
-              <img :src=" pathImg+'katalog1.png'" alt="image" class="w-full h-full object-cover" data-aos="fade-down" data-duration="1000" />
-              <div data-aos="flip-left" data-aos-easing="linear" data-aos-delay="500" class="md:absolute w-full h-max sm:top-[80%]  flex justify-center">
+              <img :src=" pathImg+'katalog1.png'" alt="image" class="w-full h-full object-cover"  />
+              <div  class="md:absolute w-full h-max sm:top-[80%]  flex justify-center">
                 <div class=" max-w-md w-full sm:w-3/4 bg-secondary text-white shadow-lg p-4 text-center sm:p-6">
                   <h3>
                     <a href="javascript:void(0)"
@@ -22,8 +22,8 @@
           </div>
           <div class=" w-1/3 md:w-1/4 px-0 xl:w-3/12 relative h-max sm:shadow-lg sm:mb-20">
             <div class=" rounded-lg relative block h-max sm:h-72" >
-              <img :src=" pathImg+'katalog1.png'" alt="image" class="w-full h-full object-cover" data-aos="fade-down" data-duration="1000" />
-              <div data-aos="flip-left" data-aos-easing="linear" data-aos-delay="500" class="md:absolute w-full h-max sm:top-[80%]  flex justify-center">
+              <img :src=" pathImg+'katalog1.png'" alt="image" class="w-full h-full object-cover"  />
+              <div  class="md:absolute w-full h-max sm:top-[80%]  flex justify-center">
                 <div class=" max-w-md w-full sm:w-3/4 bg-secondary text-white shadow-lg p-4 text-center sm:p-6">
                   <h3>
                     <a href="javascript:void(0)"
@@ -41,8 +41,8 @@
           </div>
           <div class=" w-1/3 md:w-1/4 px-0 xl:w-3/12 relative h-max sm:shadow-lg sm:mb-20">
             <div class=" rounded-lg relative block h-max sm:h-72" >
-              <img :src=" pathImg+'katalog1.png'" alt="image" class="w-full h-full object-cover" data-aos="fade-down" data-duration="1000" />
-              <div data-aos="flip-left" data-aos-easing="linear" data-aos-delay="500" class="md:absolute w-full h-max sm:top-[80%]  flex justify-center">
+              <img :src=" pathImg+'katalog1.png'" alt="image" class="w-full h-full object-cover"  />
+              <div  class="md:absolute w-full h-max sm:top-[80%]  flex justify-center">
                 <div class=" max-w-md w-full sm:w-3/4 bg-secondary text-white shadow-lg p-4 text-center sm:p-6">
                   <h3>
                     <a href="javascript:void(0)"

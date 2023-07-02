@@ -8,10 +8,7 @@ import './assets/style.css'
 import './assets/app.css'
 import './assets/animation.css'
 import VueSweetalert2 from 'vue-sweetalert2';
-import AOS from 'aos';
-import 'aos/dist/aos.css'
-
-
+import VueAnimateOnScroll from 'vue-animate-onscroll'
 // If you don't need the styles, do not connect
 import 'sweetalert2/dist/sweetalert2.min.css';
 
@@ -43,11 +40,6 @@ import {
 } from '@fortawesome/vue-fontawesome'
 
 const app = createApp(App)
-app.AOS = new AOS.init({
-    disable: "phone",
-    easing: 'ease-in',
-    once: false, // whether animation should happen only once - while scrolling down
-    mirror: false, // whether elements should animate out while scrolling past them
-});
+app.directive('animate-onscroll',VueAnimateOnScroll)
 
-app.use(router, FontAwesomeIcon, VueSweetalert2, AOS).component("font-awesome-icon", FontAwesomeIcon).mount('#app')
+app.use(router, FontAwesomeIcon, VueSweetalert2, VueAnimateOnScroll).component("font-awesome-icon", FontAwesomeIcon).mount('#app')

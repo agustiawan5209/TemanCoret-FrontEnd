@@ -7,7 +7,6 @@ import AccountInfo from '../views/account/UserAccount.vue';
 import DashboardAccountView from '../views/account/DashboardAccountView.vue';
 import WishlistView from '../views/account/WishlistView.vue';
 import OrderStory from '../views/account/OrderStoryView.vue';
-
 // Auth Guard Vue Router
 function GuardRouter(to, from, next) {
   var isAuthenticated = false;
@@ -166,7 +165,6 @@ const router = createRouter({
   },
 })
 router.beforeEach((to, from, next) => {
-  
   document.title = "APP-" + to.meta.title || "FrontEnd";
   next();
 });

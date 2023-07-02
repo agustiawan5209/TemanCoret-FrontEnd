@@ -149,7 +149,7 @@ export default {
     }
   },
   beforeCreate() {
-    axios.get('http://127.0.0.1:8000/api/config/product',)
+    axios.get('http://temancoret.admin.oraclesip.my.id/api/config/product',)
       .then(res => {
         const configApp = res.data.data
         for (let i = 0; i < configApp.length; i++) {
@@ -175,7 +175,7 @@ export default {
   methods: {
     getUser() {
       if (this.loggedIn) {
-        axios.get('http://127.0.0.1:8000/api/user', {
+        axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
           headers: { Authorization: 'Bearer ' + this.access_token }
         })
           .then(res => {

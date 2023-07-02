@@ -4,7 +4,7 @@
     <div class="appheader relative top-0 flex w-full h-[400px] sm:h-[500px] md:h-[560px] bg-gradient-to-tr from-primary-black to-gray-800">
       <!-- <img :src="pathImg + 'banner.jpg'" alt="Banner TemanCoret" class="object-cover w-full h-full"> -->
 
-      <div class="absolute top-32 md:left-20 max-w-xl md:max-w-md" data-aos="zoom-in" data-aos-duration="1500">
+      <div class="absolute top-32 md:left-20 max-w-xl md:max-w-md">
         <img :src="pathImg + 'logofeed.png'" alt="Banner TemanCoret" class="object-cover w-full h-full">
         <div class="container">
           <h1 class="text-2xl text-white text-center drop-shadow-sm font-medium mb-4 capitalize">
