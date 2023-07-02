@@ -102,7 +102,7 @@ export default {
         },
         GetTransaction(url) {
             if (this.loggedIn) {
-                axios.get("http://127.0.0.1:8000/api/user", {
+                axios.get("http://temancoret.admin.oraclesip.my.id/api/user", {
                     headers: { Authorization: "Bearer " + this.access_token }
                 })
                     .then(res => {
@@ -128,7 +128,7 @@ export default {
         }
     },
     mounted() {
-        this.GetTransaction("http://127.0.0.1:8000/api/transactions")
+        this.GetTransaction("http://temancoret.admin.oraclesip.my.id/api/transactions")
     },
     // components: { PaginationView }
 }

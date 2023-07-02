@@ -50,7 +50,7 @@
     <div class="container pb-16 w-full">
       <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">recomended for you</h2>
     
-      <ProductView :product="product" :listOrBarItemShop="'BAR'" :grid="'grid-cols-4'" />
+      <ProductView :product="product" :listOrBarItemShop="'BAR'" :grid="' grid-cols-2 sm:grid-cols-3 md:grid-cols-4'" />
     </div>
     <!-- ./product -->
 
@@ -85,14 +85,14 @@ export default {
   },
   mounted() {
     if (this.loggedIn) {
-      axios.get('http://127.0.0.1:8000/api/user', {
+      axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
         headers: { Authorization: 'Bearer ' + this.access_token }
       })
         .then(res => {
           this.User = res.data;
         }).catch(error => console.log(error))
     }
-    axios.get('http://127.0.0.1:8000/api/products')
+    axios.get('http://temancoret.admin.oraclesip.my.id/api/products')
         .then((res) => {
           this.product = res.data.data.data;
         }).catch(err=>console.log(err))

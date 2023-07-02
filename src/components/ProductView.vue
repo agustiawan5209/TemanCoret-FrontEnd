@@ -24,12 +24,12 @@
                 </div>
                 <div class="pt-4 pb-3 px-4" :class="item.stock > 0 ? '' : 'opacity-70 cursor-not-allowed'">
                     <a href="#">
-                        <h4 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition">
+                        <h4 class="uppercase font-medium text-xs sm:text-sm md:text-xl mb-2 text-gray-800 hover:text-primary transition">
                             {{ item.name }}</h4>
                     </a>
                     <div class="flex items-baseline mb-1 space-x-2">
-                        <p class="text-xl text-primary font-semibold">{{ rupiah(item.price) }}</p>
-                        <p class="text-sm text-gray-400 line-through">$55.90</p>
+                        <p class="text-xs sm:text-sm md:text-xl text-primary font-semibold">{{ rupiah(item.price) }}</p>
+                        <p class="text-xs sm:text-sm text-gray-400 line-through">$55.90</p>
                     </div>
                     <div class="flex items-center">
                         <div class="flex gap-1 text-sm text-yellow-400">
@@ -53,21 +53,21 @@
         </transition-group>
         <transition-group :key="listOrBarItemShop" name="slide-fade" tag="div" class="grid  grid-cols-1 gap-6"
             v-if="listOrBarItemShop == 'LIST'">
-            <div class="bg-white shadow border rounded overflow-hidden group transition-all ease-in flex justify-between"
+            <div class="bg-white shadow border rounded overflow-hidden group transition-all ease-in flex flex-col md:flex-row justify-between"
                 v-for="(item, index) in product" :key="item.id" :index="index">
                 <div class="flex items-center justify-start" :class="item.stock > 0 ? '' : 'opacity-70 cursor-not-allowed'">
                     <img :src="item.galleriesdefault.photo" alt="product 1" class="w-auto h-36 object-cover">
                     <div class="pt-4 pb-3 px-4">
                         <a href="#">
-                            <h4 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition">
+                            <h4 class="uppercase font-medium text-xs sm:text-sm md:text-xl mb-2 text-gray-800 hover:text-primary transition">
                                 {{ item.name }}</h4>
                         </a>
-                        <div class="flex items-baseline mb-1 space-x-2">
-                            <p class="text-xl text-primary font-semibold">{{ rupiah(item.price) }}</p>
-                            <p class="text-sm text-gray-400 line-through">$55.90</p>
+                        <div class="flex flex-col md:flex-row items-baseline mb-1 space-x-2">
+                            <p class="text-xs sm:text-sm md:text-xl text-primary font-semibold">{{ rupiah(item.price) }}</p>
+                            <p class="text-xs sm:text-sm  text-gray-400 line-through">$55.90</p>
                         </div>
-                        <div class="flex items-center">
-                            <div class="flex gap-1 text-sm text-yellow-400">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="flex gap-1 text-xs sm:text-sm text-yellow-400">
                                 <span><i class="fa-solid fa-star"></i></span>
                                 <span><i class="fa-solid fa-star"></i></span>
                                 <span><i class="fa-solid fa-star"></i></span>
@@ -78,46 +78,48 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="item.stock > 0"
-                    class="relative inset-0 flex flex-col items-center justify-center gap-2 px-10 transition">
-                    <router-link :to="{ name: 'detailproduct', params: { name: item.name, id: item.id } }"
-                        class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-sm md:text-base whitespace-nowrap"
-                        title="view product">
-                        Detail
-                    </router-link>
-                    <a href="#" @click="addWishlist(item.id)" v-if="config.wishlist"
-                        class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-sm md:text-base whitespace-nowrap"
-                        title="add to wishlist">
-                        Wishlist
-                    </a>
-                    <a href="#" @click="ModalCart(item.id, item.price)" v-if="config.cart"
-                        class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap">Add
-                        to cart</a>
-                    <a href="#" @click="ModalWA(item)" v-if="config.WA"
-                        class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap">
-                        <i class="fa-brands fa-whatsapp"></i>
-                    </a>
-                </div>
-
-                <div v-else class="relative inset-0 flex flex-col items-center justify-center gap-2 px-10 transition">
-                    <a href="#"
-                        class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-sm md:text-base whitespace-nowrap opacity-70 cursor-not-allowed"
-                        title="view product">
-                        Detail
-                    </a>
-                    <a href="#" v-if="config.wishlist"
-                        class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-sm md:text-base whitespace-nowrap opacity-70 cursor-not-allowed"
-                        title="add to wishlist">
-                        Wishlist
-                    </a>
-                    <a href="#" v-if="config.cart"
-                        class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap opacity-70 cursor-not-allowed">Add
-                        to cart
-                    </a>
-                    <a href="#" @click="ModalWA(item)" v-if="config.WA"
-                        class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap">
-                        <i class="fa-brands fa-whatsapp"></i>
-                    </a>
+                <div >
+                    <div v-if="item.stock > 0"
+                        class="relative inset-0 flex flex-row md:flex-col items-center justify-center gap-2 px-10 transition">
+                        <router-link :to="{ name: 'detailproduct', params: { name: item.name, id: item.id } }"
+                            class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs sm:text-sm md:text-base whitespace-nowrap"
+                            title="view product">
+                            Detail
+                        </router-link>
+                        <a href="#" @click="addWishlist(item.id)" v-if="config.wishlist"
+                            class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs sm:text-sm md:text-base whitespace-nowrap"
+                            title="add to wishlist">
+                            Wishlist
+                        </a>
+                        <a href="#" @click="ModalCart(item.id, item.price)" v-if="config.cart"
+                            class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap">Add
+                            to cart</a>
+                        <a href="#" @click="ModalWA(item)" v-if="config.WA"
+                            class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
+    
+                    <div v-else class="relative inset-0 flex flex-row md:flex-col items-center justify-center gap-2 px-10 transition">
+                        <a href="#"
+                            class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs sm:text-sm md:text-base whitespace-nowrap opacity-70 cursor-not-allowed"
+                            title="view product">
+                            Detail
+                        </a>
+                        <a href="#" v-if="config.wishlist"
+                            class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs sm:text-sm md:text-base whitespace-nowrap opacity-70 cursor-not-allowed"
+                            title="add to wishlist">
+                            Wishlist
+                        </a>
+                        <a href="#" v-if="config.cart"
+                            class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap opacity-70 cursor-not-allowed">Add
+                            to cart
+                        </a>
+                        <a href="#" @click="ModalWA(item)" v-if="config.WA"
+                            class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
                 </div>
 
             </div>
@@ -292,7 +294,7 @@ export default {
         }
     },
     beforeCreate() {
-        axios.get('http://127.0.0.1:8000/api/config/product',)
+        axios.get('http://temancoret.admin.oraclesip.my.id/api/config/product',)
             .then(res => {
                 const configApp = res.data.data
                 for (let i = 0; i < configApp.length; i++) {
@@ -357,7 +359,7 @@ export default {
         async addToCart(productID, priceProduct) {
 
             if (this.loggedIn) {
-                axios.get('http://127.0.0.1:8000/api/user', {
+                axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
                     headers: { Authorization: 'Bearer ' + this.access_token }
                 })
                     .then(res => {
@@ -372,7 +374,7 @@ export default {
                         }
                         // Send Data To Cart Database
                         axios({
-                            url: 'http://127.0.0.1:8000/api/Cart/store',
+                            url: 'http://temancoret.admin.oraclesip.my.id/api/Cart/store',
                             method: 'post',
                             data: params,
                             responseType: 'json',
@@ -404,7 +406,7 @@ export default {
         },
         addWishlist(productID) {
             if (this.loggedIn) {
-                axios.get('http://127.0.0.1:8000/api/user', {
+                axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
                     headers: { Authorization: 'Bearer ' + this.access_token }
                 })
                     .then(res => {
@@ -412,7 +414,7 @@ export default {
                         const UserData = res.data;
 
                         // Send Data To Cart Database
-                        axios.post('http://127.0.0.1:8000/api/Wishlist/store', {
+                        axios.post('http://temancoret.admin.oraclesip.my.id/api/Wishlist/store', {
                             user_id: UserData.id,
                             product_id: productID,
                         }).then((res) => {

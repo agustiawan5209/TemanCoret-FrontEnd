@@ -22,7 +22,7 @@ export default {
         }
     },
     mounted() {
-        axios.get('http://127.0.0.1:8000/api/categories?limit=6')
+        axios.get('http://temancoret.admin.oraclesip.my.id/api/categories?limit=6')
             .then((res) => {
                 this.categoris = res.data.data.data;
             })

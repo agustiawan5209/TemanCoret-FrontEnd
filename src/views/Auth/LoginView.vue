@@ -87,7 +87,7 @@ export default {
     methods: {
         login() {
 
-            axios.post("http://127.0.0.1:8000/api/login", {
+            axios.post("http://temancoret.admin.oraclesip.my.id/api/login", {
                 email: this.user.email,
                 password: this.user.password
             }).then(res => {

@@ -1,6 +1,6 @@
 <template>
     <div class="pb-10">
-        <ProductView :product="product" :list-or-bar-item-shop="'BAR'" :grid="'grid-cols-4'" />
+        <ProductView :product="product" :list-or-bar-item-shop="'BAR'" :grid="'grid-cols-2 sm:grid-cols-3 md:grid-cols-4'" />
     </div>
 </template>
 
@@ -21,7 +21,7 @@ export default {
         }
     },
     mounted() {
-        axios.get('http://127.0.0.1:8000/api/products', {
+        axios.get('http://temancoret.admin.oraclesip.my.id/api/products', {
             params: {
                 order_by: 'desc',
                 limit: 4,
@@ -41,7 +41,7 @@ export default {
         // Add To Cart
         addToCart(productID, priceProduct) {
             if (this.loggedIn) {
-                axios.get('http://127.0.0.1:8000/api/user', {
+                axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
                     headers: { Authorization: 'Bearer ' + this.access_token }
                 })
                     .then(res => {
@@ -49,7 +49,7 @@ export default {
                         const UserData = res.data;
 
                         // Send Data To Cart Database
-                        axios.post('http://127.0.0.1:8000/api/Cart/store', {
+                        axios.post('http://temancoret.admin.oraclesip.my.id/api/Cart/store', {
                             user_id: UserData.id,
                             product_id: productID,
                             price: priceProduct,
@@ -78,7 +78,7 @@ export default {
         },
         addWishlist(productID) {
             if (this.loggedIn) {
-                axios.get('http://127.0.0.1:8000/api/user', {
+                axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
                     headers: { Authorization: 'Bearer ' + this.access_token }
                 })
                     .then(res => {
@@ -86,7 +86,7 @@ export default {
                         const UserData = res.data;
 
                         // Send Data To Cart Database
-                        axios.post('http://127.0.0.1:8000/api/Wishlist/store', {
+                        axios.post('http://temancoret.admin.oraclesip.my.id/api/Wishlist/store', {
                             user_id: UserData.id,
                             product_id: productID,
                         }).then((res) => {

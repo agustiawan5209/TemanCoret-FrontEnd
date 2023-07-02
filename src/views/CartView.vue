@@ -160,14 +160,14 @@ export default {
     },
     created() {
      if(this.loggedIn){
-        axios.get('http://127.0.0.1:8000/api/user', {
+        axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
             headers: { Authorization: 'Bearer ' + this.access_token }
         })
             .then(res => {
                 this.User = res.data;
 
                 // Get Cart User
-                axios.get('http://127.0.0.1:8000/api/Cart/show', {
+                axios.get('http://temancoret.admin.oraclesip.my.id/api/Cart/show', {
                     params: {
                         slug: res.data.id
                     }
@@ -201,7 +201,7 @@ export default {
             }).format(number);
         },
         async clearIDCart(id) {
-            axios.delete('http://127.0.0.1:8000/api/Cart/delete', {
+            axios.delete('http://temancoret.admin.oraclesip.my.id/api/Cart/delete', {
                 data: {
                     slug: id,
                 }

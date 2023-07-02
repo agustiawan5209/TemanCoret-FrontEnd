@@ -115,7 +115,7 @@ export default {
         register() {
 
             axios({
-                url: "http://127.0.0.1:8000/api/register",
+                url: "http://temancoret.admin.oraclesip.my.id/api/register",
                 method: 'post',
                 data: this.validation,
                 headers: { "Content-Type": "multipart/form-data" },

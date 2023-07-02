@@ -181,7 +181,7 @@ export default {
         }
     },
     beforeCreate() {
-        axios.get('http://127.0.0.1:8000/api/config/product',)
+        axios.get('http://temancoret.admin.oraclesip.my.id/api/config/product',)
             .then(res => {
                 const configApp = res.data.data
                 for (let i = 0; i < configApp.length; i++) {
@@ -202,7 +202,7 @@ export default {
             })
     },
     created() {
-        axios.get('http://127.0.0.1:8000/api/products', {
+        axios.get('http://temancoret.admin.oraclesip.my.id/api/products', {
             params: {
                 id: this.productId
             }
@@ -213,7 +213,7 @@ export default {
             this.photoDefault = this.product.galleriesdefault.photo;
             this.gallerisitemId = this.product.galleriesdefault.id;
             // Get Relate Product From API
-            axios.get('http://127.0.0.1:8000/api/products', {
+            axios.get('http://temancoret.admin.oraclesip.my.id/api/products', {
                 params: {
                     category: this.product.category
                 }
@@ -258,7 +258,7 @@ export default {
         // Add To Cart
         addToCart(productID, priceProduct) {
             if (this.loggedIn) {
-                axios.get('http://127.0.0.1:8000/api/user', {
+                axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
                     headers: { Authorization: 'Bearer ' + this.access_token }
                 })
                     .then(res => {
@@ -266,7 +266,7 @@ export default {
                         const UserData = res.data;
 
                         // Send Data To Cart Database
-                        axios.post('http://127.0.0.1:8000/api/Cart/store', {
+                        axios.post('http://temancoret.admin.oraclesip.my.id/api/Cart/store', {
                             user_id: UserData.id,
                             product_id: productID,
                             price: priceProduct,
@@ -295,7 +295,7 @@ export default {
         },
         addWishlist(productID) {
             if (this.loggedIn) {
-                axios.get('http://127.0.0.1:8000/api/user', {
+                axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
                     headers: { Authorization: 'Bearer ' + this.access_token }
                 })
                     .then(res => {
@@ -303,7 +303,7 @@ export default {
                         const UserData = res.data;
 
                         // Send Data To Cart Database
-                        axios.post('http://127.0.0.1:8000/api/Wishlist/store', {
+                        axios.post('http://temancoret.admin.oraclesip.my.id/api/Wishlist/store', {
                             user_id: UserData.id,
                             product_id: productID,
                         }).then((res) => {
@@ -351,7 +351,7 @@ export default {
             }
             axios({
                 method: 'get',
-                url: 'http://127.0.0.1:8000/api/subgaleri',
+                url: 'http://temancoret.admin.oraclesip.my.id/api/subgaleri',
                 params: paramsData,
                 responseType: 'json',
             }).then((res) => {
