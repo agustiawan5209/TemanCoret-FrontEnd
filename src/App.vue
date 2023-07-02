@@ -104,8 +104,6 @@
           <router-link :to="{ name: 'about' }"
             class="text-white text-sm md:text-base font-semibold hover:text-secondary transition">Tentang
             Kami</router-link>
-          <a href="#" class="text-white text-sm md:text-base font-semibold hover:text-secondary transition">Kontak
-            Kami</a>
         </div>
         <router-link :to="{ name: 'login' }" v-if="!loggedIn && config.user"
           class="text-white text-sm md:text-base font-semibold hover:text-secondary transition">Login</router-link>

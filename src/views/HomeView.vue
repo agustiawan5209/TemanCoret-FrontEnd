@@ -39,9 +39,9 @@
     <!-- ./new arrival -->
 
     <!-- ads -->
-    <div class="container pb-16">
-      <a href="#">
-        <img :src="'/../assets/images/offer.jpg'" alt="ads" class="w-full">
+    <div class="container pb-16 mx-auto">
+      <a href="#" class="shadow-md">
+        <img :src="'/../img/ads.png'" alt="ads" class="w-full object-cover shadow-lg">
       </a>
     </div>
     <!-- ./ads -->

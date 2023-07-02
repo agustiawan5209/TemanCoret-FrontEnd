@@ -17,7 +17,7 @@
             </transition>
             <transition name="custom-classes" enter-active-class="animate__animated animate__bounceInLeft"
                 leave-active-class="animate__animated animate__bounceOutRight">
-                <div class="max-w-full h-screen w-full flex inset-0 justify-center items-start pt-20 fixed z-50"
+                <div class="max-w-full h-screen w-full flex inset-0 justify-center items-start pt-20 fixed z-50"  @focus="modalSearch = false" @focusout="modalSearch = false"
                     v-show="modalSearch">
                     <div :class="maxWidthClass"
                         class="bg-secondary w-full mx-auto rounded-lg shadow transform transition-all relative overflow-y-auto">
@@ -28,6 +28,8 @@
                             <input type="text" ref="input" id="input" v-model="dataSearch"
                                 class="w-full border border-primary border-r-0 pl-12 py-2 pr-3 rounded-l-md focus:outline-none flex"
                                 placeholder="Cari Produk">
+                                <button @click="closeModal()"
+                class="bg-error border border-primary text-white px-8 md:rounded-r-md hover:bg-transparent hover:text-primary transition md:items-center">Tutup</button>
                         </div>
                         <div class="px-2 py-3">
                             <h4 class="text-sm text-gray-600 capitalize">Hasil Pencarian</h4>
@@ -159,6 +161,10 @@ export default {
             this.modalSearch = false;
             this.product = [];
             this.$router.push({ name: 'detailproduct', params: { name: item.name, id: item.id } })
+        },
+        closeModal(){
+            this.modalSearch = false;
+            this.product = [];
         }
 
     },
