@@ -42,7 +42,7 @@
                 </div>
                 <div class="space-y-2">
                     <p class="text-gray-800 font-semibold space-x-2">
-                        <span>Availability: </span>
+                        <span>Stok: </span>
                         <span class="text-green-600" v-if="product.stock > 0">In Stock</span>
                         <span class="text-red-600" v-else>out of stock</span>
                     </p>
@@ -93,6 +93,10 @@
                 </div>
 
                 <div class="mt-6 flex gap-3 border-b border-gray-200 pb-5 pt-5">
+                    <a href="#" @click="ModalWA(product)" v-if="config.WA"
+                        class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap">
+                        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                    </a>
                     <a href="#" @click="addToCart(product.id, product.price)" v-if="product.stock > 0 && config.cart"
                         class="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-primary transition">
                         <i class="fa-solid fa-bag-shopping"></i> Add to cart
@@ -103,7 +107,7 @@
                     </a>
                 </div>
 
-                <div class="flex gap-3 mt-4">
+                <!-- <div class="flex gap-3 mt-4">
                     <a href="#"
                         class="text-gray-400 hover:text-gray-500 h-8 w-8 rounded-full border border-gray-300 flex items-center justify-center">
                         <i class="fa-brands fa-facebook-f"></i>
@@ -116,7 +120,7 @@
                         class="text-gray-400 hover:text-gray-500 h-8 w-8 rounded-full border border-gray-300 flex items-center justify-center">
                         <i class="fa-brands fa-instagram"></i>
                     </a>
-                </div>
+                </div> -->
             </div>
         </div>
         <!-- ./product-detail -->
@@ -150,7 +154,70 @@
 
         </div>
         <!-- ./related product -->
+        <ModalView :show="WaModal">
+            <div class="relative p-4 bg-white rounded-lg shadow sm:p-5 overflow-auto">
+                <div class="flex justify-between mb-4 rounded-t sm:mb-5">
+                    <div class="text-lg text-gray-900 md:text-xl ">
+                        <h3 class="font-semibold ">
+                            {{ WaProduct.name }}
+                        </h3>
+                        <p class="font-bold">
+                            {{ rupiah(WaProduct.price) }}
+                        </p>
+                    </div>
+                    <div>
+                        <button type="button" @click="WaModal = false"
+                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 inline-flex "
+                            data-modal-toggle="readWaProductModal">
+                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                </div>
+                <dl>
+                    <dt class="mb-2 font-semibold leading-none text-gray-900 ">Details</dt>
+                    <dd class="mb-4 font-light text-gray-500 sm:mb-5 ">{{ WaProduct.description }}.</dd>
+                    <dt class="mb-2 font-semibold leading-none text-gray-900 ">Category</dt>
+                    <dd class="mb-4 font-light text-gray-500 sm:mb-5 ">{{ WaProduct.category }}</dd>
+                </dl>
 
+                <div class="pb-4" v-for="(item, key) in parseJ(WaProduct.productdetails)" :key="item" :index="key">
+                    <div>
+                        <h3 class="text-sm text-gray-800 mb-3 uppercase font-medium">{{ key }}</h3>
+                        <div class="flex items-center gap-2">
+                            <div class="size-selector" v-for="col in item" :key="col">
+                                <input type="radio" :name="key" @click="checkboxClick(key, $event)"
+                                    :id="key + '-' + col.value" class="hidden" :value="col.value">
+                                <label :for="key + '-' + col.value"
+                                    class="text-xs border border-gray-200 rounded-sm h-full w-full flex items-center justify-center cursor-pointer shadow-sm text-gray-600 px-2 py-1.5 ">{{
+                                        col.value }}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-3 sm:space-x-4">
+                        <button type="button" @click="addToWa(WaProduct)"
+                            class="text-white inline-flex bg-primary items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-primary-600 hover:bg-primary-700 focus:ring-primary-800">
+                            <svg aria-hidden="true" class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z">
+                                </path>
+                                <path fill-rule="evenodd"
+                                    d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            Kirim
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </ModalView>
     </div>
 </template>
 
@@ -158,10 +225,12 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import ProductView from '../components/ProductView.vue';
+import ModalView from '../components/ModalView.vue';
 
 export default {
     components: {
-        ProductView
+        ProductView,
+        ModalView
     },
     data() {
         return {
@@ -177,7 +246,9 @@ export default {
             loggedIn: localStorage.getItem('loggedIn'),
             checkboxDetail: [],
             checkboxDetailValue: [],
-            config: { cart: true, wishlist: true }
+            config: { cart: true, wishlist: true, WA: false },
+            WaModal: false,
+            WaProduct: [],
         }
     },
     beforeCreate() {
@@ -194,6 +265,9 @@ export default {
                     }
                     if (element.name === "User") {
                         this.config.user = element.value;
+                    }
+                    if (element.name === "WA") {
+                        this.config.WA = element.value;
                     }
                 }
 
@@ -363,6 +437,29 @@ export default {
                 console.log(err)
             })
 
+        },
+        ModalWA(item) {
+            this.WaModal = true;
+            this.WaProduct = item;
+        },
+        addToWa(item) {
+            console.log(this.resultItem)
+            const enter = '%3A%0A';
+            const spasi = '%20';
+            // const koma = '%3A';
+            const link = 'http://localhost:8080/View/' + item.name + '/' + item.id
+            var text = `Produk${enter + spasi} Nama${spasi}Produk=${item.name}`
+            text += `${enter + spasi} Harga${spasi}Produk=${item.price}`
+            text += `${enter + spasi} Detail${enter}`
+
+            for (var key in this.resultItem) {
+                text += spasi + spasi + key + '=' + this.resultItem[key] + '%0A'
+            }
+            text += `${link}`
+
+
+            const wa = "https://api.whatsapp.com/send?phone=6281524269051&text=" + text + "";
+            window.location.href = wa;
         }
 
     }

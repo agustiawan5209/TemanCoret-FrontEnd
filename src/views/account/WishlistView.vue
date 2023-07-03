@@ -9,7 +9,7 @@
                 </div>
                 <div class="w-1/3">
                     <h2 class="text-gray-800 text-xl font-medium uppercase">{{ item.product.name }}</h2>
-                    <p class="text-gray-500 text-sm">Availability: <span class="text-green-600">In Stock</span></p>
+                    <p class="text-gray-500 text-sm">Stok: <span class="text-green-600">In Stock</span></p>
                 </div>
                 <div class="text-primary text-lg font-semibold">{{ rupiah(item.product.price) }}</div>
                 <a href="#" @click="ModalCart(item.product)"

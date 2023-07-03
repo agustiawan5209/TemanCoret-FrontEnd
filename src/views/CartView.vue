@@ -25,7 +25,7 @@
                         </div>
                         <div class="w-1/3">
                             <h2 class="text-gray-800 text-sm md:text-xl font-medium uppercase">{{ item.product.name }}</h2>
-                            <p class="text-gray-500 text-sm">Availability: <span class="text-green-600">{{
+                            <p class="text-gray-500 text-sm">Stok: <span class="text-green-600">{{
                                 item.product.stock }}</span></p>
                         </div>
                         <div class="text-primary text-xs sm:text-base md:text-lg font-semibold">{{ rupiah(item.product.price) }}</div>

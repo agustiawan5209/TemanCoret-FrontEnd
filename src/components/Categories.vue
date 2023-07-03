@@ -1,6 +1,6 @@
 <template>
     <div class="container py-6" v-if="categoris.length > 0">
-        <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">shop by category</h2>
+        <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">Belanja Dengan Kategori</h2>
         <div class="grid  gap-3 h-max" :class="categoris.length >= 5 ? 'grid-cols-3 md:grid-cols-5' :'grid-cols-3 md:grid-cols-7'">
             <div class="relative rounded-sm overflow-hidden group flex items-center justify-center" v-for="item in categoris" :key="item.id">
                 <img :src="item.thumbnail" alt="category 1" class="w-full object-cover relative">

@@ -39,7 +39,7 @@
                 </button>
                 <div class="divide-y divide-gray-200 space-y-5">
                     <div>
-                        <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Categories</h3>
+                        <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Kategori</h3>
                         <div class="space-y-2">
                             <div class="flex items-center" v-for="item in categories" :key="item.id">
                                 <input type="checkbox" :value="item.name" v-bind:name="item.name" v-bind:id="item.name"
@@ -52,7 +52,7 @@
                     </div>
 
                     <div class="pt-4">
-                        <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Price</h3>
+                        <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Harga</h3>
                         <div class="mt-4 flex items-center">
                             <input type="text" name="min" id="min" v-model="priceMaxMin.min"
                                 class="w-full border-gray-300 focus:border-primary rounded focus:ring-0 px-3 py-1 text-gray-600 shadow-sm"
@@ -64,7 +64,7 @@
                         </div>
                     </div>
 
-                    <div class="pt-4">
+                    <!-- <div class="pt-4">
                         <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">size</h3>
                         <div class="flex items-center gap-2">
                             <div class="size-selector">
@@ -118,7 +118,7 @@
                             </div>
 
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
             </div>
@@ -127,7 +127,7 @@
             <div class="col-span-1 bg-secondary px-4 pb-6 shadow rounded overflow-hidden hidden md:block">
                 <div class="divide-y divide-gray-200 space-y-5">
                     <div>
-                        <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Categories</h3>
+                        <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Kategori</h3>
                         <div class="space-y-2">
                             <div class="flex items-center" v-for="item in categories" :key="item.id">
                                 <input type="checkbox" :value="item.name" v-bind:name="item.name" v-bind:id="item.name"
@@ -151,8 +151,8 @@
                                 placeholder="max">
                         </div>
                     </div>
-
-                    <div class="pt-4">
+                    <!-- Size -->
+                    <!-- <div class="pt-4">
                         <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">size</h3>
                         <div class="flex items-center gap-2">
                             <div class="size-selector">
@@ -181,9 +181,9 @@
                                     class="text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600">XL</label>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="pt-4">
+                    </div> -->
+                    <!-- Color -->
+                    <!-- <div class="pt-4">
                         <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Color</h3>
                         <div class="flex items-center gap-2">
                             <div class="color-selector">
@@ -206,7 +206,7 @@
                             </div>
 
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
             </div>
@@ -216,10 +216,10 @@
                 <div class="flex items-center mb-4">
                     <select name="sort" id="sort" @change="sorting($event)"
                         class="w-44 text-sm text-gray-600 py-3 px-4 border-gray-300 shadow-sm rounded focus:ring-primary focus:border-primary">
-                        <option value="">Default sorting</option>
-                        <option value="price_low_to_high">Price low to high</option>
-                        <option value="price_high_to_low">Price high to low</option>
-                        <option value="latest">Latest product</option>
+                        <option value="">Default</option>
+                        <option value="price_low_to_high">Harga Murah ke Tinggi</option>
+                        <option value="price_high_to_low">Harga Tinggi ke Murah</option>
+                        <option value="latest">Terbaru</option>
                     </select>
 
                     <div class="flex gap-2 ml-auto">

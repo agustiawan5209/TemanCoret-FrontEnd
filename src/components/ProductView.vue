@@ -347,10 +347,7 @@ export default {
             this.productDetail = item;
             // this.checkboxItem.push(item.productdetails);
         },
-        ModalWA(item) {
-            this.WaModal = true;
-            this.WaProduct = item;
-        },
+       
         checkboxClick(named, e) {
             this.checkboxItem.push({ name: named, value: e.target.value })
             this.resultItem = this.checkboxItem.reduce(function (r, a) {
@@ -443,6 +440,10 @@ export default {
             } else {
                 this.$router.push({ name: 'login' })
             }
+        },
+        ModalWA(item) {
+            this.WaModal = true;
+            this.WaProduct = item;
         },
         addToWa(item) {
             console.log(this.resultItem)

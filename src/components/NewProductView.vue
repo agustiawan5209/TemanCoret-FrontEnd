@@ -24,7 +24,7 @@ export default {
         axios.get('http://temancoret.admin.oraclesip.my.id/api/products', {
             params: {
                 order_by: 'desc',
-                limit: 4,
+                limit: 8,
             }
         })
             .then((res) => {

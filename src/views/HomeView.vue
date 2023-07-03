@@ -33,7 +33,7 @@
 
     <!-- new arrival -->
     <div class="container">
-      <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">top new arrival</h2>
+      <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">Terbaru</h2>
       <NewProductView />
     </div>
     <!-- ./new arrival -->
@@ -48,7 +48,7 @@
 
     <!-- product -->
     <div class="container pb-16 w-full">
-      <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">recomended for you</h2>
+      <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">Rekomendasi Untukmu</h2>
     
       <ProductView :product="product" :listOrBarItemShop="'BAR'" :grid="' grid-cols-2 sm:grid-cols-3 md:grid-cols-4'" />
     </div>
