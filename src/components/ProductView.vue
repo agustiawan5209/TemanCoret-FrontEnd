@@ -2,7 +2,7 @@
     <div class="w-full">
         <transition-group :key="listOrBarItemShop" name="slide-fade" tag="div" :class="grid" class="grid grid-cols-1 gap-6"
             v-if="listOrBarItemShop == 'BAR'">
-            <div class="bg-white shadow rounded overflow-hidden group img-product transition-all ease-in"
+            <div class="bg-white shadow  rounded h-full overflow-hidden group img-product transition-all ease-in"
                 v-for="(item, index) in product" :key="item.id" :index="index">
                 <div class="relative" :class="item.stock > 0 ? '' : 'opacity-70 cursor-not-allowed'">
                     <img :src="item.galleriesdefault.photo" v-if="item.galleries.length > 0" alt="product 1"
@@ -22,17 +22,25 @@
                         </a>
                     </div>
                 </div>
-                <div class="pt-4 pb-3 px-4" :class="item.stock > 0 ? '' : 'opacity-70 cursor-not-allowed'">
+                <div class="pt-4 pb-3 px-4 h-max md:h-[130px]" :class="item.stock > 0 ? '' : 'opacity-70 cursor-not-allowed'">
                     <a href="#">
                         <h4
-                            class="uppercase font-medium text-xs sm:text-sm md:text-xl mb-2 text-gray-800 hover:text-primary transition">
+                            class="uppercase font-medium text-xs sm:text-sm mb-2 text-gray-800 hover:text-primary transition">
                             {{ item.name }}</h4>
                     </a>
                     <div class="flex items-baseline mb-1 space-x-2">
-                        <p class="text-xs sm:text-sm md:text-xl text-primary font-semibold">{{ rupiah(item.price) }}</p>
-                        <p class="text-xs sm:text-sm text-gray-400 line-through">$55.90</p>
+                        <p class="text-xs sm:text-sm text-primary font-semibold">{{ rupiah(item.price) }}</p>
+                        <!-- <p class="text-xs sm:text-sm text-gray-400 line-through">$55.90</p> -->
                     </div>
-                    <div class="flex items-center">
+                    <table class="table-auto border-collapse w-full text-left text-gray-600 text-xs ">
+                        <tr v-for="(item, key) in parseJ(item.productdetails)" :key="item.id" :index="key">
+                            <th class=" border border-gray-300">{{ key }}</th>
+                            <th class=" border border-gray-300 ">
+                                <span v-for="col in item" :key="col.value">{{ col.value }}, </span>
+                            </th>
+                        </tr>
+                    </table>
+                    <!-- <div class="flex items-center">
                         <div class="flex gap-1 text-sm text-yellow-400">
                             <span><i class="fa-solid fa-star"></i></span>
                             <span><i class="fa-solid fa-star"></i></span>
@@ -41,15 +49,17 @@
                             <span><i class="fa-solid fa-star"></i></span>
                         </div>
                         <div class="text-xs text-gray-500 ml-3">({{ item.stock }})</div>
-                    </div>
+                    </div> -->
                 </div>
-                <button type="button" @click="ModalCart(item)" v-if="item.stock > 0 && config.cart"
-                    class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">Add
-                    to cart</button>
-                <a href="#" @click="ModalWA(item)" v-if="config.WA"
-                    class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap">
-                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
-                </a>
+                <div class="flex ">
+                    <button type="button" @click="ModalCart(item)" v-if="item.stock > 0 && config.cart"
+                        class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">Add
+                        to cart</button>
+                    <a href="#" @click="ModalWA(item)" v-if="config.WA"
+                        class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap">
+                        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                    </a>
+                </div>
             </div>
         </transition-group>
         <transition-group :key="listOrBarItemShop" name="slide-fade" tag="div" class="grid  grid-cols-1 gap-6"
@@ -61,14 +71,15 @@
                     <div class="pt-4 pb-3 px-4">
                         <a href="#">
                             <h4
-                                class="uppercase font-medium text-xs sm:text-sm md:text-xl mb-2 text-gray-800 hover:text-primary transition">
+                                class="uppercase font-medium text-xs sm:text-sm md:text-base mb-2 text-gray-800 hover:text-primary transition">
                                 {{ item.name }}</h4>
                         </a>
                         <div class="flex flex-col md:flex-row items-baseline mb-1 space-x-2">
                             <p class="text-xs sm:text-sm md:text-xl text-primary font-semibold">{{ rupiah(item.price) }}</p>
-                            <p class="text-xs sm:text-sm  text-gray-400 line-through">$55.90</p>
+                            <!-- <p class="text-xs sm:text-sm  text-gray-400 line-through">$55.90</p> -->
                         </div>
-                        <div class="flex flex-col md:flex-row items-center">
+
+                        <!-- <div class="flex flex-col md:flex-row items-center">
                             <div class="flex gap-1 text-xs sm:text-sm text-yellow-400">
                                 <span><i class="fa-solid fa-star"></i></span>
                                 <span><i class="fa-solid fa-star"></i></span>
@@ -77,56 +88,65 @@
                                 <span><i class="fa-solid fa-star"></i></span>
                             </div>
                             <div class="text-xs text-gray-500 ml-3">({{ item.stock }})</div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
-                <div>
-                    <div v-if="item.stock > 0"
-                        class="relative inset-0 flex flex-row md:flex-col items-center justify-center gap-2 px-10 transition">
-                        <router-link :to="{ name: 'detailproduct', params: { name: item.name, id: item.id } }"
-                            class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs sm:text-sm md:text-base whitespace-nowrap"
-                            title="view product">
-                            Detail
-                        </router-link>
-                        <a href="#" @click="addWishlist(item.id)" v-if="config.wishlist"
-                            class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs sm:text-sm md:text-base whitespace-nowrap"
-                            title="add to wishlist">
-                            Wishlist
-                        </a>
-                        <a href="#" @click="ModalCart(item.id, item.price)" v-if="config.cart"
-                            class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap">Add
-                            to cart</a>
-                        <a href="#" @click="ModalWA(item)" v-if="config.WA"
-                            class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap">
-                            <i class="fa-brands fa-whatsapp"></i>
-                        </a>
-                    </div>
+                <table class="table-auto border-collapse  text-left text-gray-600 text-xs ">
+                    <tr v-for="(item, key) in parseJ(item.productdetails)" :key="item.id" :index="key">
+                        <th class=" border-b border-gray-300">{{ key }} </th>
+                        <th class=" border-b border-gray-300 ">
+                            :<span v-for="col in item" :key="col.value">{{ col.value }}, </span>
+                        </th>
 
-                    <div v-else
-                        class="relative inset-0 flex flex-row md:flex-col items-center justify-center gap-2 px-10 transition">
-                        <a href="#"
-                            class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs sm:text-sm md:text-base whitespace-nowrap opacity-70 cursor-not-allowed"
-                            title="view product">
-                            Detail
-                        </a>
-                        <a href="#" v-if="config.wishlist"
-                            class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs sm:text-sm md:text-base whitespace-nowrap opacity-70 cursor-not-allowed"
-                            title="add to wishlist">
-                            Wishlist
-                        </a>
-                        <a href="#" v-if="config.cart"
-                            class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap opacity-70 cursor-not-allowed">Add
-                            to cart
-                        </a>
-                        <a href="#" @click="ModalWA(item)" v-if="config.WA"
-                            class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap">
-                            <i class="fa-brands fa-whatsapp"></i>
-                        </a>
-                    </div>
+                    </tr>
+                </table>
+                <div v-if="item.stock > 0"
+                    class="relative inset-0 flex flex-row md:flex-col items-center justify-center gap-2 px-10 transition">
+                    <router-link :to="{ name: 'detailproduct', params: { name: item.name, id: item.id } }"
+                        class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs sm:text-sm md:text-base whitespace-nowrap"
+                        title="view product">
+                        Detail
+                    </router-link>
+                    <a href="#" @click="addWishlist(item.id)" v-if="config.wishlist"
+                        class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs sm:text-sm md:text-base whitespace-nowrap"
+                        title="add to wishlist">
+                        Wishlist
+                    </a>
+                    <a href="#" @click="ModalCart(item.id, item.price)" v-if="config.cart"
+                        class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap">Add
+                        to cart</a>
+                    <a href="#" @click="ModalWA(item)" v-if="config.WA"
+                        class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+
+                <div v-else
+                    class="relative inset-0 flex flex-row md:flex-col items-center justify-center gap-2 px-10 transition">
+                    <a href="#"
+                        class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs sm:text-sm md:text-base whitespace-nowrap opacity-70 cursor-not-allowed"
+                        title="view product">
+                        Detail
+                    </a>
+                    <a href="#" v-if="config.wishlist"
+                        class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs sm:text-sm md:text-base whitespace-nowrap opacity-70 cursor-not-allowed"
+                        title="add to wishlist">
+                        Wishlist
+                    </a>
+                    <a href="#" v-if="config.cart"
+                        class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap opacity-70 cursor-not-allowed">Add
+                        to cart
+                    </a>
+                    <a href="#" @click="ModalWA(item)" v-if="config.WA"
+                        class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
                 </div>
 
             </div>
         </transition-group>
+        
+
 
         <ModalView :show="showModal">
             <div class="relative p-4 bg-white rounded-lg shadow sm:p-5 overflow-auto">
@@ -324,6 +344,7 @@ export default {
         // console.log(this.$route)
     },
     methods: {
+      
         parseJ(data) {
             var arr = [];
             for (let i = 0; i < data.length; i++) {
@@ -347,7 +368,7 @@ export default {
             this.productDetail = item;
             // this.checkboxItem.push(item.productdetails);
         },
-       
+
         checkboxClick(named, e) {
             this.checkboxItem.push({ name: named, value: e.target.value })
             this.resultItem = this.checkboxItem.reduce(function (r, a) {
@@ -461,9 +482,10 @@ export default {
             text += `${link}`
 
 
-            const wa = "https://api.whatsapp.com/send?phone=6281524269051&text=" + text + "";
+            const wa = "https://api.whatsapp.com/send?phone=6281222311396&text=" + text + "";
             window.location.href = wa;
-        }
+        },
+      
     },
 
 }

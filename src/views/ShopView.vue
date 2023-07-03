@@ -1,6 +1,6 @@
 <template>
     <div>
-   
+
 
         <!-- shop wrapper -->
         <div class="container grid md:grid-cols-4 grid-cols-2 gap-6 pt-4 pb-16 items-start">
@@ -19,8 +19,7 @@
             <div id="drawer-example"
                 class="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-secondary w-80 "
                 tabindex="-1" aria-labelledby="drawer-label">
-                <h5 id="drawer-label"
-                    class="inline-flex items-center mb-4 text-base font-semibold text-gray-800 "><svg
+                <h5 id="drawer-label" class="inline-flex items-center mb-4 text-base font-semibold text-gray-800 "><svg
                         class="w-5 h-5 mr-2" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -223,19 +222,47 @@
                     </select>
 
                     <div class="flex gap-2 ml-auto">
-                        <div @click="listOrBarItemShopFunc('BAR')" :class="listOrBarItemShop == 'BAR' ? 'border-primary text-white bg-primary':'border-gray-300 text-gray-600 bg-transparent'"
+                        <div @click="listOrBarItemShopFunc('BAR')"
+                            :class="listOrBarItemShop == 'BAR' ? 'border-primary text-white bg-primary' : 'border-gray-300 text-gray-600 bg-transparent'"
                             class="border  w-10 h-9 flex items-center justify-center  rounded cursor-pointer transition ease-in">
                             <i class="fa-solid fa-grip-vertical"></i>
                         </div>
-                        <div @click="listOrBarItemShopFunc('LIST')"  :class="listOrBarItemShop == 'LIST' ? 'border-primary text-white bg-primary':'border-gray-300 text-gray-600 bg-transparent'"
+                        <div @click="listOrBarItemShopFunc('LIST')"
+                            :class="listOrBarItemShop == 'LIST' ? 'border-primary text-white bg-primary' : 'border-gray-300 text-gray-600 bg-transparent'"
                             class="border w-10 h-9 flex items-center justify-center  rounded cursor-pointer transition ease-in">
                             <i class="fa-solid fa-list"></i>
                         </div>
                     </div>
                 </div>
 
-                <ProductView :product="product" :listOrBarItemShop="listOrBarItemShop" :grid="'grid-cols-2 md:grid-cols-3'"/>
-               
+                <ProductView :product="product.data" :listOrBarItemShop="listOrBarItemShop"
+                    :grid="'grid-cols-2 md:grid-cols-3'" />
+                <div v-if="product.length > 10">
+                    <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
+                        aria-label="Table navigation">
+                        <span class="text-sm font-normal text-gray-500">
+                            Showing
+                            <span class="font-semibold text-gray-900">{{ product.from }}</span>
+                            of
+                            <span class="font-semibold text-gray-900">{{ product.total }}</span>
+                        </span>
+                        <ul class="inline-flex items-stretch -space-x-px rounded-lg gap-1">
+
+                            <li v-for="(link, idx) in product.links" :key="link">
+
+                                <a href="#" v-if="link.url === null" :key="idx"
+                                    class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+                                    v-html="link.label" />
+                                <a href="#" v-else :key="`link-${idx}`"
+                                    :class="link.active ? 'bg-white border-info text-black' : 'border-gray-300'"
+                                    @click="GetPage(link.url)"
+                                    class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border  hover:bg-gray-100 hover:text-gray-700"
+                                    v-html="link.label" />
+                            </li>
+
+                        </ul>
+                    </nav>
+                </div>
             </div>
 
             <!-- ./products -->
@@ -253,13 +280,13 @@ import { useRoute } from 'vue-router';
 import ProductView from '../components/ProductView.vue';
 
 export default {
-    components:{
+    components: {
         ProductView,
     },
     data() {
         return {
             slug: null,
-            product: null,
+            product: [],
             params: null,
             categories: null,
             categoryName: [],
@@ -292,24 +319,24 @@ export default {
                 this.categories = res.data.data.data;
             })
             .catch(error => console.log(error))
-            if(this.listOrBarItemShop == null){
-                localStorage.setItem('listOrBarItemShop', 'BAR')
-            }
+        if (this.listOrBarItemShop == null) {
+            localStorage.setItem('listOrBarItemShop', 'BAR')
+        }
     },
     created() {
         const route = useRoute();
         this.params = route.params;
 
-       if(this.loggedIn){
-         // User
-         axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
-            headers: { Authorization: 'Bearer ' + this.access_token }
-        })
-            .then(res => {
-                this.User = res.data;
-            }).catch(error => console.log(error))
+        if (this.loggedIn) {
+            // User
+            axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
+                headers: { Authorization: 'Bearer ' + this.access_token }
+            })
+                .then(res => {
+                    this.User = res.data;
+                }).catch(error => console.log(error))
 
-       }
+        }
         // Bar List Item
         if (this.listOrBarItemShop == null) {
             localStorage.setItem('listOrBarItemShop', 'BAR');
@@ -318,25 +345,9 @@ export default {
 
     mounted() {
         this.slug = this.$route.params.slug;
-
+        this.getProductApi('http://temancoret.admin.oraclesip.my.id/api/products')
         // View Product
-        if (this.slug == null || this.categoryName.length < 1) {
-            axios.get('http://temancoret.admin.oraclesip.my.id/api/products')
-                .then((res) => {
-                    this.product = res.data.data.data;
-                })
-                .catch(error => console.log(error))
 
-        } else {
-            this.categoryName.push(this.slug);
-            axios.get('http://temancoret.admin.oraclesip.my.id/api/products?categories=' + this.slug)
-                .then((res) => {
-                    this.product = res.data.data.data;
-
-                })
-                .catch(error => console.log(error))
-
-        }
     },
     methods: {
         // rupiah(number) {
@@ -345,11 +356,39 @@ export default {
         //         currency: "IDR"
         //     }).format(number);
         // },
-        drawer(){
-           var drawer = document.getElementById('drawer-example');
-           drawer.classList.replace('-translate-x-full', 'translate-x-0');
+        getProductApi(url) {
+           
+            if (this.slug == null || this.categoryName.length < 1) {
+                axios.get(url,{
+                    params:{
+                        limit: 10,
+                    }
+                })
+                    .then((res) => {
+                        this.product = res.data.data;
+                    })
+                    .catch(error => console.log(error))
+
+            } else {
+                this.categoryName.push(this.slug);
+                axios.get(url+'?categories=' + this.slug)
+                    .then((res) => {
+                        this.product = res.data.data;
+
+                    })
+                    .catch(error => console.log(error))
+
+            }
         },
-        closeDrawer(){
+        GetPage(url) {
+            this.getProductApi(url)
+
+        },
+        drawer() {
+            var drawer = document.getElementById('drawer-example');
+            drawer.classList.replace('-translate-x-full', 'translate-x-0');
+        },
+        closeDrawer() {
             var drawer = document.querySelector('[data-drawer-hide="drawer-example"]');
             var target = document.getElementById(drawer.getAttribute('data-drawer-hide'));
             target.classList.replace('translate-x-0', '-translate-x-full')
@@ -483,5 +522,4 @@ export default {
     height: 217.77px !important;
     overflow: hidden;
 }
-
 </style>
