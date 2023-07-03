@@ -92,7 +92,11 @@ export default {
           this.User = res.data;
         }).catch(error => console.log(error))
     }
-    axios.get('http://temancoret.admin.oraclesip.my.id/api/products')
+    axios.get('http://temancoret.admin.oraclesip.my.id/api/products',{
+      params: {
+        limit: 12,
+      }
+    })
         .then((res) => {
           this.product = res.data.data.data;
         }).catch(err=>console.log(err))

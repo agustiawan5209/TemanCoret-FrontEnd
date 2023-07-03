@@ -22,7 +22,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="pt-4 pb-3 px-4 h-max md:h-[130px]" :class="item.stock > 0 ? '' : 'opacity-70 cursor-not-allowed'">
+                <div class="pt-4 pb-3 px-4 h-[130px]" :class="item.stock > 0 ? '' : 'opacity-70 cursor-not-allowed'">
                     <a href="#">
                         <h4
                             class="uppercase font-medium text-xs sm:text-sm mb-2 text-gray-800 hover:text-primary transition">
