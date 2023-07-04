@@ -124,7 +124,7 @@
 
             <!-- ./sidebar -->
             <div class="col-span-1 bg-secondary px-4 pb-6 shadow rounded overflow-hidden hidden md:block">
-                <div class="divide-y divide-gray-200 space-y-5">
+                <div class="divide-y divide-gray-200 space-y-5 ">
                     <div>
                         <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Kategori</h3>
                         <div class="space-y-2">
@@ -237,7 +237,7 @@
 
                 <ProductView :product="product.data" :listOrBarItemShop="listOrBarItemShop"
                     :grid="'grid-cols-2 md:grid-cols-3'" />
-                <div v-if="product.length > 10">
+                <div v-if="product">
                     <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
                         aria-label="Table navigation">
                         <span class="text-sm font-normal text-gray-500">
@@ -285,7 +285,7 @@ export default {
     },
     data() {
         return {
-            slug: null,
+            slug: this.$route.params.slug,
             product: [],
             params: null,
             categories: null,
@@ -344,8 +344,7 @@ export default {
     },
 
     mounted() {
-        this.slug = this.$route.params.slug;
-        this.getProductApi('http://temancoret.admin.oraclesip.my.id/api/products')
+        this.init('http://temancoret.admin.oraclesip.my.id/api/products')
         // View Product
 
     },
@@ -356,32 +355,9 @@ export default {
         //         currency: "IDR"
         //     }).format(number);
         // },
-        getProductApi(url) {
-           
-            if (this.slug == null || this.categoryName.length < 1) {
-                axios.get(url,{
-                    params:{
-                        limit: 10,
-                    }
-                })
-                    .then((res) => {
-                        this.product = res.data.data;
-                    })
-                    .catch(error => console.log(error))
-
-            } else {
-                this.categoryName.push(this.slug);
-                axios.get(url+'?categories=' + this.slug)
-                    .then((res) => {
-                        this.product = res.data.data;
-
-                    })
-                    .catch(error => console.log(error))
-
-            }
-        },
+       
         GetPage(url) {
-            this.getProductApi(url)
+            this.init(url)
 
         },
         drawer() {
@@ -393,12 +369,14 @@ export default {
             var target = document.getElementById(drawer.getAttribute('data-drawer-hide'));
             target.classList.replace('translate-x-0', '-translate-x-full')
         },
-        init() {
-            axios.get('http://temancoret.admin.oraclesip.my.id/api/products', {
+        init(url = null) {
+            const pageUrl = url == null ? 'http://temancoret.admin.oraclesip.my.id/api/products' : url;
+            axios.get(pageUrl, {
                 params: {
                     price_max: this.priceMaxMin.max,
                     price_min: this.priceMaxMin.min,
                     categories_array: this.categoryName,
+                    limit: 12,
                     order_by_value: this.sortingPrice,
                 },
                 paramsSerializer: function (params) {
@@ -406,23 +384,15 @@ export default {
                 }
             })
                 .then((res) => {
-                    this.product = res.data.data.data;
+                    this.product = res.data.data;
                 })
                 .catch(error => console.log(error))
         },
         // Change Category Checkbox
         changeCheckboxCategory() {
 
-            if (this.categoryName.length > 0) {
-                this.init()
-            } else {
-                axios.get('http://temancoret.admin.oraclesip.my.id/api/products')
-                    .then((res) => {
-                        this.product = res.data.data.data;
-                    })
-                    .catch(error => console.log(error))
+            this.init()
 
-            }
         },
 
         // Change Sorting Select
