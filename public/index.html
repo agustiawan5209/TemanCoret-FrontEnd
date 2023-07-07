@@ -1,18 +1,66 @@
 <!DOCTYPE html>
 <html lang="">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
-  </head>
-  <body class="overflow-x-hidden">
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="description"
+    content="Temancoret adalah platform yang menyediakan inspirasi dan informasi kreatif dalam bidang Seni. Temukan Design Baju, Kaos, dan Dapat Melakukan Pemesanan Baju untuk anda Anda.">
+
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+  <meta name="author" content="temancoret">
+  <meta name="keywords"
+    content="temancoret,temancoret.studio,#temancoret, design,kaos,baju,clothes,budaya,sulawesi,coret,temancoret, inspirasi kreatif, informasi kreatif, artikel kreatif, tutorial kreatif,industrial,UKM, ">
+  <meta name="language" content="ind">
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
+</head>
+
+<body class="overflow-x-hidden">
+  <noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+      Please enable it to continue.</strong>
+  </noscript>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-F4XVLT76RF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-F4XVLT76RF');
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "kaos budaya sulawesi",
+      "image": "http://temancoret.admin.oraclesip.my.id/storage/product/e05eb3599b2a740d51c59d68523ebd67",
+      "description": "kaos budaya sulawesi",
+      "brand": {
+        "@type": "brand",
+        "name": "temancoret"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "100000",
+        "priceCurrency": "IDR",
+        "availability": "https://schema.org/InStock",
+        "seller": {
+          "@type": "Organization",
+          "name": "temancoret"
+        }
+      }
+    }
+  </script>
+
+</body>
+
 </html>

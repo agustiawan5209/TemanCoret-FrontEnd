@@ -1,7 +1,7 @@
 <template>
     <carousel :items-to-show="1" :autoplay="3000" :wrap-around="true">
       <slide v-for="slide in carouselIMG" :key="slide">
-        <img :src="slide" />
+        <img :src="slide" alt="TemanCoret design"/>
       </slide>
   
     </carousel>

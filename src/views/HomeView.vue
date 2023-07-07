@@ -33,13 +33,13 @@
 
     <!-- new arrival -->
     <div class="container">
-      <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">Terbaru</h2>
+      <h1 class=" text-base md:text-2xl font-medium text-gray-800 uppercase mb-2 md:mb-6">Produk Terbaru TemanCoret</h1>
       <NewProductView />
     </div>
     <!-- ./new arrival -->
 
     <!-- ads -->
-    <div class="container pb-16 mx-auto">
+    <div class="container pb-10 mx-auto">
       <a href="#" class="shadow-md">
         <img :src="'/../img/ads.png'" alt="ads" class="w-full object-cover shadow-lg">
       </a>
@@ -48,8 +48,7 @@
 
     <!-- product -->
     <div class="container pb-16 w-full">
-      <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">Rekomendasi Untukmu</h2>
-    
+      <h1 class="text-base md:text-2xl font-medium text-gray-800 uppercase mb-2 md:mb-6">Rekomendasi Untuk dari TemanCoret</h1>
       <ProductView :product="product" :listOrBarItemShop="'BAR'" :grid="' grid-cols-2 sm:grid-cols-3 md:grid-cols-4'" />
     </div>
     <!-- ./product -->

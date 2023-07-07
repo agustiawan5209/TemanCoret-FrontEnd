@@ -8,7 +8,7 @@
             <span class="text-sm text-gray-400">
                 <i class="fa-solid fa-chevron-right"></i>
             </span>
-            <p class="text-gray-600 font-medium">Product</p>
+            <p class="text-gray-600 font-medium">Produk</p>
         </div>
         <!-- ./breadcrumb -->
 
@@ -51,7 +51,7 @@
                         <span class="text-gray-600">{{ product.brand }}</span>
                     </p>
                     <p class="space-x-2">
-                        <span class="text-gray-800 font-semibold">Category: </span>
+                        <span class="text-gray-800 font-semibold">Kategori: </span>
                         <span class="text-gray-600">{{ product.category }}</span>
                     </p>
                     <p class="space-x-2">
@@ -127,7 +127,7 @@
 
         <!-- description -->
         <div class="container pb-16">
-            <h3 class="border-b border-gray-200 font-roboto text-gray-800 pb-3 font-medium">Product details</h3>
+            <h3 class="border-b border-gray-200 font-roboto text-gray-800 pb-3 font-medium">Detail Produk</h3>
             <div class="w-3/5 pt-6">
                 <div class="text-gray-600">
                     <p v-html="product.description"></p>
@@ -148,13 +148,11 @@
 
         <!-- related product -->
         <div class="container pb-16">
-            <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">Related products</h2>
-
-            <ProductView :product="relateProduct" :listOrBarItemShop="'BAR'" :grid="'grid-cols-4'" />
-
+            <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">Rekomendasi Produk</h2>
+            <ProductView :product="relateProduct" :listOrBarItemShop="'BAR'" :grid="'grid-cols-2 md:grid-cols-4'" />
         </div>
         <!-- ./related product -->
-    
+
     </div>
 </template>
 
@@ -182,7 +180,6 @@ export default {
             checkboxDetail: [],
             checkboxDetailValue: [],
             config: { cart: true, wishlist: true, WA: false },
-           
             checkboxItem: new Array,
             resultItem: {},
         }
@@ -209,37 +206,39 @@ export default {
 
             })
     },
-    created() {
-        axios.get('http://temancoret.admin.oraclesip.my.id/api/products', {
-            params: {
-                id: this.productId
-            }
-        }).then((res) => {
-            this.product = res.data.data;
-            this.detailproducts = this.parseJ(this.product.productdetails);
-
-            this.photoDefault = this.product.galleriesdefault.photo;
-            this.gallerisitemId = this.product.galleriesdefault.id;
-            // Get Relate Product From API
+    mounted() {
+        this.init()
+    },
+    updated(){
+        this.init()
+    },
+    methods: {
+        async init() {
             axios.get('http://temancoret.admin.oraclesip.my.id/api/products', {
                 params: {
-                    category: this.product.category
+                    id: this.productId
                 }
-            }).then((response) => {
-                this.relateProduct = response.data.data.data;
+            }).then((res) => {
+                this.product = res.data.data;
+                this.detailproducts = this.parseJ(this.product.productdetails);
+
+                this.photoDefault = this.product.galleriesdefault.photo;
+                this.gallerisitemId = this.product.galleriesdefault.id;
+                // Get Relate Product From API
+                axios.get('http://temancoret.admin.oraclesip.my.id/api/products', {
+                    params: {
+                        category: this.product.category
+                    }
+                }).then((response) => {
+                    this.relateProduct = response.data.data.data;
+                }).catch((err) => {
+                    console.log(err)
+                })
+                // End Related Product
             }).catch((err) => {
                 console.log(err)
             })
-            // End Related Product
-        }).catch((err) => {
-            console.log(err)
-        })
-
-    },
-    updated() {
-        // console.log(this.detailproducts)
-    },
-    methods: {
+        },
         rupiah(number) {
             return new Intl.NumberFormat("id-ID", {
                 style: "currency",
@@ -352,7 +351,7 @@ export default {
         async checkboxCek(event, named) {
             this.checkboxDetail = named
             this.checkboxDetailValue = event.target.value
-            this.checkboxClick(named,event);
+            this.checkboxClick(named, event);
             var paramsData = {
                 product_id: this.productId,
                 value: this.checkboxDetailValue,

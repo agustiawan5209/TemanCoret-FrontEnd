@@ -5,7 +5,7 @@
             <span class="absolute left-4 top-2 text-lg text-gray-400">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </span>
-            <input type="text" ref="search" id="search" v-model="search"
+            <input type="text" ref="search" id="search" name="search" v-model="search"
                 class="w-full border border-primary md:border-r-0 pl-12 md:py-2 md:pr-3 md:rounded-l-md focus:outline-none"
                 placeholder="Cari Produk">
             <button @click="searchClick()"
@@ -25,7 +25,7 @@
                             <span class="absolute left-4 top-2 md:top-2 text-lg text-gray-400">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </span>
-                            <input type="text" ref="input" id="input" v-model="dataSearch"
+                            <input type="text" ref="input" id="input" name="input" v-model="dataSearch"
                                 class="w-full border border-primary border-r-0 pl-12 py-2 pr-3 rounded-l-md focus:outline-none flex"
                                 placeholder="Cari Produk">
                             <button @click="closeModal()"

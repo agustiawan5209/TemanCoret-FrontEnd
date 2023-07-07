@@ -48,7 +48,7 @@ const routes = [
     name: 'home',
     component: HomeView,
     meta: {
-      title: "HOME"
+      title: "Platform Inspirasi dan Informasi Kreatif"
     }
   },
   {
@@ -165,7 +165,7 @@ const router = createRouter({
   },
 })
 router.beforeEach((to, from, next) => {
-  document.title = "APP-" + to.meta.title || "FrontEnd";
+  document.title = "TemanCoret-" + to.meta.title || "TemanCoret";
   next();
 });
 

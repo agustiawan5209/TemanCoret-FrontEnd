@@ -355,7 +355,7 @@ export default {
         //         currency: "IDR"
         //     }).format(number);
         // },
-       
+
         GetPage(url) {
             this.init(url)
 
@@ -378,6 +378,7 @@ export default {
                     categories_array: this.categoryName,
                     limit: 12,
                     order_by_value: this.sortingPrice,
+                    categories: this.slug
                 },
                 paramsSerializer: function (params) {
                     return querystring.stringify(params);
