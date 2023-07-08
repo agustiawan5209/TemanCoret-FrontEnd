@@ -6,7 +6,7 @@
           <img :src="pathImg + 'logofeed.png'" alt="Logo TemanCoret" srcset=""
             class=" drop-shadow-xl w-full relative object-cover" >
         </div>
-        <div class=" max-w-xs sm:max-w-md flex flex-col items-center justify-start h-full z-10"  v-animate-onscroll="'animated flash'">
+        <div class=" max-w-xs sm:max-w-md flex flex-col items-center justify-start h-full z-10"  >
           <img :src="pathImg + 'logofeed.png'" alt="Logo TemanCoret" srcset="" class=" drop-shadow-lg shadow-white">
         </div>
         <div class=" w-full sm:max-w-4xl px-3 z-10">

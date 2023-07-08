@@ -1,7 +1,8 @@
 <template>
-  <div class="home">
+  <div class="home" >
 
-    <div class="appheader relative top-0 flex w-full h-[400px] sm:h-[500px] md:h-[560px] bg-gradient-to-tr from-primary-black to-gray-800">
+    <div
+      class="appheader relative top-0 flex w-full h-[400px] sm:h-[500px] md:h-[560px] bg-gradient-to-tr from-primary-black to-gray-800">
       <!-- <img :src="pathImg + 'banner.jpg'" alt="Banner TemanCoret" class="object-cover w-full h-full"> -->
 
       <div class="absolute top-32 md:left-20 max-w-xl md:max-w-md">
@@ -12,9 +13,10 @@
           </h1>
         </div>
       </div>
-      <div class="absolute bg-white hidden lg:block w-20 right-64 h-full" ></div>
-      <div class="absolute top-0 sm:top-0 md:top-0 lg:-top-10 right-6 sm:right-0  lg:right-20  max-w-sm sm:max-w-md mx-auto md:max-w-md bg-transparent px-5 py-5 h-full flex justify-center">
-       <CarouselView class=" w-[80%] lg:w-full"/>
+      <div class="absolute bg-white hidden lg:block w-20 right-64 h-full"></div>
+      <div
+        class="absolute top-0 sm:top-0 md:top-0 lg:-top-10 right-6 sm:right-0  lg:right-20  max-w-sm sm:max-w-md mx-auto md:max-w-md bg-transparent px-5 py-5 h-full flex justify-center">
+        <CarouselView class=" w-[80%] lg:w-full" />
       </div>
       <div class="custom-shape-divider-bottom-1688083698 h-10 md:h-max rotate-180">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -24,35 +26,39 @@
     </div>
     <!-- ./banner -->
 
-    <!-- Katalog -->
-    <KatalogView />
-    <!-- ./Katalog -->
-    <!-- categories -->
-    <CategoriesView />
-    <!-- ./categories -->
-
-    <!-- new arrival -->
-    <div class="container">
-      <h1 class=" text-base md:text-2xl font-medium text-gray-800 uppercase mb-2 md:mb-6">Produk Terbaru TemanCoret</h1>
-      <NewProductView />
-    </div>
-    <!-- ./new arrival -->
-
-    <!-- ads -->
-    <div class="container pb-10 mx-auto">
-      <a href="#" class="shadow-md">
-        <img :src="'/../img/ads.png'" alt="ads" class="w-full object-cover shadow-lg">
-      </a>
-    </div>
-    <!-- ./ads -->
-
-    <!-- product -->
-    <div class="container pb-16 w-full">
-      <h1 class="text-base md:text-2xl font-medium text-gray-800 uppercase mb-2 md:mb-6">Rekomendasi Untuk dari TemanCoret</h1>
-      <ProductView :product="product" :listOrBarItemShop="'BAR'" :grid="' grid-cols-2 sm:grid-cols-3 md:grid-cols-4'" />
-    </div>
-    <!-- ./product -->
-
+  <section class="container mx-auto">
+      <!-- Katalog -->
+      <KatalogView />
+      <!-- ./Katalog -->
+      <!-- categories -->
+      <CategoriesView />
+      <!-- ./categories -->
+  
+      <!-- new arrival -->
+      <div class="container">
+        <h1 class=" text-base md:text-2xl font-medium text-gray-800 uppercase mb-2 md:mb-6">Produk Terbaru TemanCoret</h1>
+        <NewProductView />
+      </div>
+      <!-- ./new arrival -->
+  
+      <!-- ads -->
+      <div class="container pb-10 mx-auto">
+        <a href="#" class="shadow-md">
+          <img :src="'/../img/ads.png'" alt="ads" class="w-full object-cover shadow-lg">
+        </a>
+      </div>
+      <!-- ./ads -->
+  
+      <!-- product -->
+      <div class="container pb-16 w-full">
+        <h1 class="text-base md:text-2xl font-medium text-gray-800 uppercase mb-2 md:mb-6">Rekomendasi Untuk dari TemanCoret
+        </h1>
+        <ProductView :product="product" :listOrBarItemShop="'BAR'" :grid="' grid-cols-2 sm:grid-cols-3 md:grid-cols-4'" />
+  
+      </div>
+      <!-- ./product -->
+  
+  </section>
   </div>
 </template>
 
@@ -91,14 +97,14 @@ export default {
           this.User = res.data;
         }).catch(error => console.log(error))
     }
-    axios.get('http://temancoret.admin.oraclesip.my.id/api/products',{
+    axios.get('http://temancoret.admin.oraclesip.my.id/api/products', {
       params: {
         limit: 12,
       }
     })
-        .then((res) => {
-          this.product = res.data.data.data;
-        }).catch(err=>console.log(err))
+      .then((res) => {
+        this.product = res.data.data.data;
+      }).catch(err => console.log(err))
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container mx-auto">
 
 
         <!-- shop wrapper -->
@@ -237,6 +237,7 @@
 
                 <ProductView :product="product.data" :listOrBarItemShop="listOrBarItemShop"
                     :grid="'grid-cols-2 md:grid-cols-3'" />
+
                 <div v-if="product">
                     <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
                         aria-label="Table navigation">
@@ -344,6 +345,9 @@ export default {
     },
 
     mounted() {
+        if (this.slug !== null) {
+            this.categoryName.push(this.slug)
+        }
         this.init('http://temancoret.admin.oraclesip.my.id/api/products')
         // View Product
 
@@ -378,7 +382,6 @@ export default {
                     categories_array: this.categoryName,
                     limit: 12,
                     order_by_value: this.sortingPrice,
-                    categories: this.slug
                 },
                 paramsSerializer: function (params) {
                     return querystring.stringify(params);

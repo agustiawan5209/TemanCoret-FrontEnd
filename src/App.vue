@@ -8,7 +8,7 @@
 
       <!-- Model Search -->
       <div class=" hidden md:flex max-w-xl">
-        <search-modal  />
+        <search-modal />
 
       </div>
 
@@ -51,7 +51,7 @@
 
   </header>
   <section class="flex md:hidden w-full">
-    <search-modal  />
+    <search-modal />
   </section>
 
   <!-- ./header -->
@@ -63,7 +63,7 @@
         <span class="text-white">
           <i class="fa-solid fa-bars"></i>
         </span>
-       
+
       </div>
 
       <div class="flex items-center justify-between flex-grow md:pl-12 py-5">
@@ -83,11 +83,13 @@
   </nav>
   <!-- ./navbar -->
 
-  <router-view v-slot="{ Component }">
-    <transition name="fade">
-      <component :is="Component" />
-    </transition>
-  </router-view>
+  <main>
+    <router-view v-slot="{ Component }">
+      <transition name="fade">
+        <component :is="Component" />
+      </transition>
+    </router-view>
+  </main>
 
 
 
@@ -173,9 +175,8 @@ export default {
           )
       }
     },
-    showModalSearch(){
+    showModalSearch() {
       this.modalSearch = true;
-      console.log(this.modalSearch)
     }
 
   }

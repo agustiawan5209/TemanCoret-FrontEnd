@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container mx-auto">
         <!-- breadcrumb -->
         <div class="container py-4 flex items-center gap-3">
             <router-link to="/" class="text-primary text-base">

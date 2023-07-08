@@ -1,158 +1,147 @@
-import {
-  createRouter,
-  createWebHistory,
-} from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import AccountInfo from '../views/account/UserAccount.vue';
-import DashboardAccountView from '../views/account/DashboardAccountView.vue';
-import WishlistView from '../views/account/WishlistView.vue';
-import OrderStory from '../views/account/OrderStoryView.vue';
+import { createRouter, createWebHistory } from "vue-router";
+import HomeView from "../views/HomeView.vue";
+import AccountInfo from "../views/account/UserAccount.vue";
+import DashboardAccountView from "../views/account/DashboardAccountView.vue";
+import WishlistView from "../views/account/WishlistView.vue";
+import OrderStory from "../views/account/OrderStoryView.vue";
 // Auth Guard Vue Router
-function GuardRouter(to, from, next) {
+function GuardRouter(next) {
   var isAuthenticated = false;
-  if (localStorage.getItem('loggedIn')) {
+  if (localStorage.getItem("loggedIn")) {
     isAuthenticated = true;
   } else {
     isAuthenticated = false;
   }
   if (isAuthenticated) {
-    next()
+    next();
   } else {
-    next('login')
+    next("login");
   }
 }
-
 
 const routes = [
   // Auth Router
   {
     path: "/login",
-    name: 'login',
-    component: () => import('../views/Auth/LoginView.vue'),
+    name: "login",
+    component: () => import("../views/Auth/LoginView.vue"),
     meta: {
       title: "Login"
-    },
-
+    }
   },
   {
     path: "/register",
-    name: 'register',
-    component: () => import('../views/Auth/RegisterView.vue'),
+    name: "register",
+    component: () => import("../views/Auth/RegisterView.vue"),
     meta: {
       title: "Register"
-    },
-
+    }
   },
   {
-    path: '/',
-    name: 'home',
+    path: "/",
+    name: "home",
     component: HomeView,
     meta: {
       title: "Platform Inspirasi dan Informasi Kreatif"
     }
   },
   {
-    path: '/about',
-    name: 'about',
-    component: () => import('../views/AboutView.vue'),
+    path: "/about",
+    name: "about",
+    component: () => import("../views/AboutView.vue"),
     meta: {
       title: "About"
     }
   },
   {
-    path: '/shop/:slug?',
-    name: 'shop',
+    path: "/shop/:slug?",
+    name: "shop",
     props: false,
-    component: () => import('../views/ShopView.vue'),
+    component: () => import("../views/ShopView.vue"),
     meta: {
       title: "SHOP"
     }
   },
   // Router For User Account
   {
-    path: '/account',
-    name: 'account',
+    path: "/account",
+    name: "account",
     beforeEnter: GuardRouter,
     component: DashboardAccountView,
-    children: [{
-        path: '',
-        name: 'account.info',
-        component: AccountInfo,
+    children: [
+      {
+        path: "",
+        name: "account.info",
+        component: AccountInfo
       },
 
       {
-        path: '/wishlist',
-        name: 'account.wishlist',
+        path: "/wishlist",
+        name: "account.wishlist",
         beforeEnter: GuardRouter,
         component: WishlistView,
         meta: {
           title: "Wishlist Product"
-        },
+        }
       },
       // Order History Transaction
       {
-        path: '/OrderStory',
-        name: 'account.order',
+        path: "/OrderStory",
+        name: "account.order",
         beforeEnter: GuardRouter,
         component: OrderStory,
         meta: {
           title: "Order Story"
-        },
-      },
+        }
+      }
     ],
     meta: {
       title: "Account"
-    },
-
+    }
   },
 
   // Route For Cart
   {
-    path: '/cart',
-    name: 'cart',
+    path: "/cart",
+    name: "cart",
     beforeEnter: GuardRouter,
-    component: () => import('../views/CartView.vue'),
+    component: () => import("../views/CartView.vue"),
     meta: {
       title: "Cart Product",
-      reload:true,
-    },
-
+      reload: true
+    }
   },
   {
-    path: '/checkout',
-    name: 'checkout',
+    path: "/checkout",
+    name: "checkout",
     beforeEnter: GuardRouter,
-    component: () => import('../views/CheckoutView.vue'),
+    component: () => import("../views/CheckoutView.vue"),
     meta: {
       title: "CheckOut"
-    },
-
+    }
   },
 
   {
-    path: '/success',
-    name: 'success',
+    path: "/success",
+    name: "success",
     beforeEnter: GuardRouter,
-    component: () => import('../views/SuccessView.vue'),
+    component: () => import("../views/SuccessView.vue"),
     meta: {
       title: "Success",
-      reload:true,
-    },
-
+      reload: true
+    }
   },
 
   // Route Detail Product
   {
-    path: '/View/:name/:id',
-    name: 'detailproduct',
-    component: () => import('../views/DetailView.vue'),
+    path: "/View/:name/:id",
+    name: "detailproduct",
+    component: () => import("../views/DetailView.vue"),
     meta: {
       title: "Detail Product"
-    },
-  },
-
-
-]
+    }
+  }
+];
 
 const router = createRouter({
   history: createWebHistory(),
@@ -161,12 +150,12 @@ const router = createRouter({
     // always scroll to top
     return {
       top: 0
-    }
-  },
-})
+    };
+  }
+});
 router.beforeEach((to, from, next) => {
   document.title = "TemanCoret-" + to.meta.title || "TemanCoret";
   next();
 });
 
-export default router
+export default router;
