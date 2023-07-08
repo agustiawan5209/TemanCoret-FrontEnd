@@ -1,18 +1,20 @@
-import {
-  createRouter,
-  createWebHistory
-} from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import AccountInfo from "../views/account/UserAccount.vue";
 import DashboardAccountView from "../views/account/DashboardAccountView.vue";
 import WishlistView from "../views/account/WishlistView.vue";
 import OrderStory from "../views/account/OrderStoryView.vue";
+import NProgress from 'nprogress';
+// import ProgressBar from '../components/ProgressBar.vue';
 
-// Component 
-const CartPage = () => import( /* webpackChunkName: "group-user" */ "../views/CartView.vue");
+// Component
+const CartPage = () =>
+  import(/* webpackChunkName: "group-user" */ "../views/CartView.vue");
 
-const ShopPage = () => import( /* webpackChunkName: "group-user" */ "../views/ShopView.vue")
+const ShopPage = () =>
+  import(/* webpackChunkName: "group-user" */ "../views/ShopView.vue");
 
-const HomeView = ()=>import( /* webpackChunkName: "group-user" */ "../views/HomeView.vue")
+const HomeView = () =>
+  import(/* webpackChunkName: "group-user" */ "../views/HomeView.vue");
 
 // Auth Guard Vue Router
 function GuardRouter(next) {
@@ -78,7 +80,8 @@ const routes = [
     name: "account",
     beforeEnter: GuardRouter,
     component: DashboardAccountView,
-    children: [{
+    children: [
+      {
         path: "",
         name: "account.info",
         component: AccountInfo
@@ -108,7 +111,6 @@ const routes = [
       title: "Account"
     }
   },
-
 
   // Route For Cart
   {
@@ -163,9 +165,19 @@ const router = createRouter({
     };
   }
 });
+NProgress.configure({
+  showSpinner:false
+})
 router.beforeEach((to, from, next) => {
+  NProgress.start()
+
   document.title = "TemanCoret-" + to.meta.title || "TemanCoret";
   next();
 });
+
+router.afterEach(() => {
+  // Complete the animation of the route progress bar.
+  NProgress.done()
+})
 
 export default router;

@@ -112,7 +112,7 @@ import axios from 'axios';
 import SearchModal from './components/SearchModal.vue';
 export default {
   components: {
-    SearchModal
+    SearchModal,
   },
   data() {
     return {
@@ -150,7 +150,7 @@ export default {
       })
   },
   mounted() {
-    this.getUser()
+    this.getUser();
   },
   methods: {
     getUser() {

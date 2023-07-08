@@ -1,9 +1,9 @@
 // assets
-
+import '../node_modules/nprogress/nprogress.css' 
 import "./css/style.css";
 import "./css/app.css";
 import "./css/animation.css";
-
+import NProgress from "nprogress";
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
@@ -29,6 +29,6 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 const app = createApp(App);
 
 app
-  .use(router, FontAwesomeIcon, VueSweetalert2)
+  .use(router, FontAwesomeIcon, VueSweetalert2,NProgress)
   .component("font-awesome-icon", FontAwesomeIcon)
   .mount("#app");

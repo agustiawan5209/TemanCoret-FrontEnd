@@ -327,7 +327,11 @@ export default {
         }
     },
     beforeCreate() {
-        axios.get('http://temancoret.admin.oraclesip.my.id/api/config/product',)
+        axios.get('http://temancoret.admin.oraclesip.my.id/api/config/product',{
+            beforeRedirect:{
+                
+            }
+        })
             .then(res => {
                 const configApp = res.data.data
                 for (let i = 0; i < configApp.length; i++) {
