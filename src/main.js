@@ -1,7 +1,7 @@
 // assets
 import '../node_modules/nprogress/nprogress.css' 
 import "./css/style.css";
-import "./css/app.css";
+import "./css/shape.css";
 import "./css/animation.css";
 import NProgress from "nprogress";
 import { createApp } from "vue";

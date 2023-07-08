@@ -1,12 +1,12 @@
 <template>
     <teleport to='body'>
         <transition>
-            <div class=" fixed top-0 left-0 inset-0 z-[99] opacity-60 bg-gray-800 flex justify-center items-center">
+            <div v-if="show" class=" fixed top-0 left-0 inset-0 z-[99] opacity-60 bg-gray-800 flex justify-center items-center">
             </div>
         </transition>
         <transition>
 
-            <div class="fixed top-0 inset-0 z-[100] w-full h-screen flex justify-center items-center bg-transparent">
+            <div v-if="show" class="fixed top-0 inset-0 z-[100] w-full h-screen flex justify-center items-center bg-transparent">
                 <div class="battery bg-white"></div>
             </div>
         </transition>

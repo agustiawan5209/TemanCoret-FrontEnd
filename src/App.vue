@@ -84,6 +84,7 @@
   <!-- ./navbar -->
 
   <main>
+    <ProgressBar :show="loadingPage" />
     <router-view v-slot="{ Component }">
       <transition name="fade">
         <component :is="Component" />
@@ -110,9 +111,11 @@
 <script>
 import axios from 'axios';
 import SearchModal from './components/SearchModal.vue';
+import ProgressBar from './components/ProgressBar.vue';
 export default {
   components: {
     SearchModal,
+    ProgressBar,
   },
   data() {
     return {
@@ -127,6 +130,7 @@ export default {
         user: true,
       },
       modalSearch: false,
+      loadingPage:false,
     }
   },
 
@@ -148,6 +152,30 @@ export default {
         }
 
       })
+  },
+  created() {
+    axios.interceptors.request.use((config) => {
+      // trigger 'loading=true' event here
+      this.loadingPage = true;
+      return config;
+    }, (error) => {
+      // trigger 'loading=false' event here
+      this.loadingPage = true;
+
+      return Promise.reject(error);
+    });
+
+    axios.interceptors.response.use((response) => {
+      // trigger 'loading=false' event here
+      this.loadingPage = false;
+
+      return response;
+    }, (error) => {
+      // trigger 'loading=false' event here
+      this.loadingPage = false;
+
+      return Promise.reject(error);
+    });
   },
   mounted() {
     this.getUser();
