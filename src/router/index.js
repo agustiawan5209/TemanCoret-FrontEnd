@@ -1,9 +1,19 @@
-import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import {
+  createRouter,
+  createWebHistory
+} from "vue-router";
 import AccountInfo from "../views/account/UserAccount.vue";
 import DashboardAccountView from "../views/account/DashboardAccountView.vue";
 import WishlistView from "../views/account/WishlistView.vue";
 import OrderStory from "../views/account/OrderStoryView.vue";
+
+// Component 
+const CartPage = () => import( /* webpackChunkName: "group-user" */ "../views/CartView.vue");
+
+const ShopPage = () => import( /* webpackChunkName: "group-user" */ "../views/ShopView.vue")
+
+const HomeView = ()=>import( /* webpackChunkName: "group-user" */ "../views/HomeView.vue")
+
 // Auth Guard Vue Router
 function GuardRouter(next) {
   var isAuthenticated = false;
@@ -57,7 +67,7 @@ const routes = [
     path: "/shop/:slug?",
     name: "shop",
     props: false,
-    component: () => import("../views/ShopView.vue"),
+    component: ShopPage,
     meta: {
       title: "SHOP"
     }
@@ -68,8 +78,7 @@ const routes = [
     name: "account",
     beforeEnter: GuardRouter,
     component: DashboardAccountView,
-    children: [
-      {
+    children: [{
         path: "",
         name: "account.info",
         component: AccountInfo
@@ -100,12 +109,13 @@ const routes = [
     }
   },
 
+
   // Route For Cart
   {
     path: "/cart",
     name: "cart",
     beforeEnter: GuardRouter,
-    component: () => import("../views/CartView.vue"),
+    component: CartPage,
     meta: {
       title: "Cart Product",
       reload: true
