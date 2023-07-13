@@ -94,7 +94,7 @@
 
                 <div class="mt-6 flex gap-3 border-b border-gray-200 pb-5 pt-5">
                     <a href="#" @click="addToWa(product)" v-if="config.WA"
-                        class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap">
+                        class="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-primary transition">
                         <i class="fa-brands fa-whatsapp"></i> WhatsApp
                     </a>
                     <a href="#" @click="addToCart(product.id, product.price)" v-if="product.stock > 0 && config.cart"
@@ -146,8 +146,12 @@
         </div>
         <!-- ./description -->
 
+        <!-- Comment -->
+        <CommentView  :dataComment="product" :comment="product.comment"/>
+        <!-- /End Comment -->
+
         <!-- related product -->
-        <div class="container pb-16">
+        <div class="container mx-auto z-10">
             <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">Rekomendasi Produk</h2>
             <ProductView :product="relateProduct" :listOrBarItemShop="'BAR'" :grid="'grid-cols-2 md:grid-cols-4'" />
         </div>
@@ -159,11 +163,12 @@
 <script>
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import ProductView from '../components/ProductView.vue';
-
+import ProductView from '@/components/ProductView.vue';
+import CommentView from '@/components/CommentView.vue';
 export default {
     components: {
         ProductView,
+        CommentView,
     },
     data() {
         return {
@@ -185,7 +190,7 @@ export default {
         }
     },
     beforeCreate() {
-        axios.get('http://temancoret.admin.oraclesip.my.id/api/config/product',)
+        axios.get('http://127.0.0.1:8000/api/config/product',)
             .then(res => {
                 const configApp = res.data.data
                 for (let i = 0; i < configApp.length; i++) {
@@ -209,12 +214,9 @@ export default {
     mounted() {
         this.init()
     },
-    updated(){
-        this.init()
-    },
     methods: {
         async init() {
-            axios.get('http://temancoret.admin.oraclesip.my.id/api/products', {
+            axios.get('http://127.0.0.1:8000/api/products', {
                 params: {
                     id: this.productId
                 }
@@ -225,9 +227,11 @@ export default {
                 this.photoDefault = this.product.galleriesdefault.photo;
                 this.gallerisitemId = this.product.galleriesdefault.id;
                 // Get Relate Product From API
-                axios.get('http://temancoret.admin.oraclesip.my.id/api/products', {
+                axios.get('http://127.0.0.1:8000/api/products', {
                     params: {
-                        category: this.product.category
+                        category: this.product.category,
+                        // slug:this.product.brand,
+                        limit: 8,
                     }
                 }).then((response) => {
                     this.relateProduct = response.data.data.data;
@@ -265,7 +269,7 @@ export default {
         // Add To Cart
         addToCart(productID, priceProduct) {
             if (this.loggedIn) {
-                axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
+                axios.get('http://127.0.0.1:8000/api/user', {
                     headers: { Authorization: 'Bearer ' + this.access_token }
                 })
                     .then(res => {
@@ -273,7 +277,7 @@ export default {
                         const UserData = res.data;
 
                         // Send Data To Cart Database
-                        axios.post('http://temancoret.admin.oraclesip.my.id/api/Cart/store', {
+                        axios.post('http://127.0.0.1:8000/api/Cart/store', {
                             user_id: UserData.id,
                             product_id: productID,
                             price: priceProduct,
@@ -302,7 +306,7 @@ export default {
         },
         addWishlist(productID) {
             if (this.loggedIn) {
-                axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
+                axios.get('http://127.0.0.1:8000/api/user', {
                     headers: { Authorization: 'Bearer ' + this.access_token }
                 })
                     .then(res => {
@@ -310,7 +314,7 @@ export default {
                         const UserData = res.data;
 
                         // Send Data To Cart Database
-                        axios.post('http://temancoret.admin.oraclesip.my.id/api/Wishlist/store', {
+                        axios.post('http://127.0.0.1:8000/api/Wishlist/store', {
                             user_id: UserData.id,
                             product_id: productID,
                         }).then((res) => {
@@ -359,7 +363,7 @@ export default {
             }
             axios({
                 method: 'get',
-                url: 'http://temancoret.admin.oraclesip.my.id/api/subgaleri',
+                url: 'http://127.0.0.1:8000/api/subgaleri',
                 params: paramsData,
                 responseType: 'json',
             }).then((res) => {

@@ -21,7 +21,7 @@ export default {
         }
     },
     mounted() {
-        axios.get('http://temancoret.admin.oraclesip.my.id/api/products', {
+        axios.get('http://127.0.0.1:8000/api/products', {
             params: {
                 order_by: 'desc',
                 limit: 4,
@@ -41,7 +41,7 @@ export default {
         // Add To Cart
         addToCart(productID, priceProduct) {
             if (this.loggedIn) {
-                axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
+                axios.get('http://127.0.0.1:8000/api/user', {
                     headers: { Authorization: 'Bearer ' + this.access_token }
                 })
                     .then(res => {
@@ -49,7 +49,7 @@ export default {
                         const UserData = res.data;
 
                         // Send Data To Cart Database
-                        axios.post('http://temancoret.admin.oraclesip.my.id/api/Cart/store', {
+                        axios.post('http://127.0.0.1:8000/api/Cart/store', {
                             user_id: UserData.id,
                             product_id: productID,
                             price: priceProduct,
@@ -78,7 +78,7 @@ export default {
         },
         addWishlist(productID) {
             if (this.loggedIn) {
-                axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
+                axios.get('http://127.0.0.1:8000/api/user', {
                     headers: { Authorization: 'Bearer ' + this.access_token }
                 })
                     .then(res => {
@@ -86,7 +86,7 @@ export default {
                         const UserData = res.data;
 
                         // Send Data To Cart Database
-                        axios.post('http://temancoret.admin.oraclesip.my.id/api/Wishlist/store', {
+                        axios.post('http://127.0.0.1:8000/api/Wishlist/store', {
                             user_id: UserData.id,
                             product_id: productID,
                         }).then((res) => {

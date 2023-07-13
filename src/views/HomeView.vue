@@ -90,14 +90,14 @@ export default {
   },
   mounted() {
     if (this.loggedIn) {
-      axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
+      axios.get('http://127.0.0.1:8000/api/user', {
         headers: { Authorization: 'Bearer ' + this.access_token }
       })
         .then(res => {
           this.User = res.data;
         }).catch(error => console.log(error))
     }
-    axios.get('http://temancoret.admin.oraclesip.my.id/api/products', {
+    axios.get('http://127.0.0.1:8000/api/products', {
       params: {
         limit: 12,
       }

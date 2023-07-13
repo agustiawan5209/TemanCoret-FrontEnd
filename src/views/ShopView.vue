@@ -315,7 +315,7 @@ export default {
     },
     beforeCreate() {
         // Mengirim Kondisi apabila slug kosong
-        axios.get('http://temancoret.admin.oraclesip.my.id/api/categories')
+        axios.get('http://127.0.0.1:8000/api/categories')
             .then((res) => {
                 this.categories = res.data.data.data;
             })
@@ -330,7 +330,7 @@ export default {
 
         if (this.loggedIn) {
             // User
-            axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
+            axios.get('http://127.0.0.1:8000/api/user', {
                 headers: { Authorization: 'Bearer ' + this.access_token }
             })
                 .then(res => {
@@ -348,7 +348,7 @@ export default {
         if (this.slug !== null) {
             this.categoryName.push(this.slug)
         }
-        this.init('http://temancoret.admin.oraclesip.my.id/api/products')
+        this.init('http://127.0.0.1:8000/api/products')
         // View Product
 
     },
@@ -374,23 +374,41 @@ export default {
             target.classList.replace('translate-x-0', '-translate-x-full')
         },
         init(url = null) {
-            const pageUrl = url == null ? 'http://temancoret.admin.oraclesip.my.id/api/products' : url;
-            axios.get(pageUrl, {
-                params: {
-                    price_max: this.priceMaxMin.max,
-                    price_min: this.priceMaxMin.min,
-                    categories_array: this.categoryName,
-                    limit: 12,
-                    order_by_value: this.sortingPrice,
-                },
-                paramsSerializer: function (params) {
-                    return querystring.stringify(params);
-                }
-            })
-                .then((res) => {
-                    this.product = res.data.data;
+            const pageUrl = url == null ? 'http://127.0.0.1:8000/api/products' : url;
+            if (this.categoryName.length > 0) {
+                axios.get(pageUrl, {
+                    params: {
+                        price_max: this.priceMaxMin.max,
+                        price_min: this.priceMaxMin.min,
+                        categories_array: this.categoryName,
+                        limit: 12,
+                        order_by_value: this.sortingPrice,
+                    },
+                    paramsSerializer: function (params) {
+                        return querystring.stringify(params);
+                    }
                 })
-                .catch(error => console.log(error))
+                    .then((res) => {
+                        this.product = res.data.data;
+                    })
+                    .catch(error => console.log(error))
+            } else {
+                axios.get(pageUrl, {
+                    params: {
+                        price_max: this.priceMaxMin.max,
+                        price_min: this.priceMaxMin.min,
+                        limit: 12,
+                        order_by_value: this.sortingPrice,
+                    },
+                    paramsSerializer: function (params) {
+                        return querystring.stringify(params);
+                    }
+                })
+                    .then((res) => {
+                        this.product = res.data.data;
+                    })
+                    .catch(error => console.log(error))
+            }
         },
         // Change Category Checkbox
         changeCheckboxCategory() {
@@ -406,80 +424,6 @@ export default {
         },
         // End Sorting Price
 
-        // Add To Cart
-        // addToCart(productID, priceProduct) {
-        //     if (this.loggedIn) {
-        //         axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
-        //             headers: { Authorization: 'Bearer ' + this.access_token }
-        //         })
-        //             .then(res => {
-        //                 // Get Data User
-        //                 const UserData = res.data;
-
-        //                 // Send Data To Cart Database
-        //                 axios.post('http://temancoret.admin.oraclesip.my.id/api/Cart/store', {
-        //                     user_id: UserData.id,
-        //                     product_id: productID,
-        //                     price: priceProduct,
-        //                     quantity: 1,
-        //                 }).then((res) => {
-        //                     // // Modal Notification
-        //                     Swal.fire({
-        //                         title: res.data.meta.message,
-        //                         confirmButtonText: 'Save',
-        //                     }).then((result) => {
-        //                         /* Read more about isConfirmed, isDenied below */
-        //                         if (result.isConfirmed) {
-
-        //                             this.$router.push({ name: 'cart' }).then(() => { this.$router.go() })
-        //                         }
-        //                     })
-        //                 }).catch((err) => {
-        //                     console.log(err)
-        //                 })
-
-        //             }).catch(error => console.log(error))
-
-
-        //     } else {
-        //         this.$router.push({ name: 'login' })
-        //     }
-        // },
-        // addWishlist(productID) {
-        //     if (this.loggedIn) {
-        //         axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
-        //             headers: { Authorization: 'Bearer ' + this.access_token }
-        //         })
-        //             .then(res => {
-        //                 // Get Data User
-        //                 const UserData = res.data;
-
-        //                 // Send Data To Cart Database
-        //                 axios.post('http://temancoret.admin.oraclesip.my.id/api/Wishlist/store', {
-        //                     user_id: UserData.id,
-        //                     product_id: productID,
-        //                 }).then((res) => {
-        //                     // // Modal Notification
-        //                     Swal.fire({
-        //                         title: res.data.meta.message,
-        //                         confirmButtonText: 'Save',
-        //                     }).then((result) => {
-        //                         /* Read more about isConfirmed, isDenied below */
-        //                         if (result.isConfirmed) {
-        //                             this.$router.push({ name: 'account.wishlist' }).then(() => { this.$router.go() })
-        //                         }
-        //                     })
-        //                 }).catch((err) => {
-        //                     console.log(err)
-        //                 })
-
-        //             }).catch(error => console.log(error))
-
-
-        //     } else {
-        //         this.$router.push({ name: 'login' })
-        //     }
-        // },
         listOrBarItemShopFunc(list) {
             localStorage.setItem('listOrBarItemShop', list);
             this.listOrBarItemShop = list;

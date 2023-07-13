@@ -17,7 +17,7 @@ const HomeView = () =>
   import(/* webpackChunkName: "group-user" */ "../views/HomeView.vue");
 
 // Auth Guard Vue Router
-function GuardRouter(next) {
+function GuardRouter() {
   var isAuthenticated = false;
   if (localStorage.getItem("loggedIn")) {
     isAuthenticated = true;
@@ -25,9 +25,9 @@ function GuardRouter(next) {
     isAuthenticated = false;
   }
   if (isAuthenticated) {
-    next();
+    return true;
   } else {
-    next("login");
+    return {name : 'login'}
   }
 }
 

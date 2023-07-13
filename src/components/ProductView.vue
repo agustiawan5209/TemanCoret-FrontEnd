@@ -12,11 +12,11 @@
                             class="w-full object-cover drop-shadow-2xl">
                         <div
                             class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
-                            <router-link :to="{ name: 'detailproduct', params: { name: item.name, id: item.id } }"
+                            <a href="#" @click="addToDetail(item)"
                                 class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
                                 title="Detail">
                                 <i class="fa-solid fa-magnifying-glass"></i>
-                            </router-link>
+                            </a>
                             <a href="#" @click="addWishlist(item.id)" v-if="config.wishlist"
                                 class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
                                 title="Wishlist">
@@ -56,8 +56,8 @@
                     </div>
                     <div class="flex ">
                         <button type="button" @click="ModalCart(item)" v-if="item.stock > 0 && config.cart"
-                            class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">Add
-                            to cart</button>
+                            class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">
+                            <i class="fa-solid fa-cart-plus"></i>Keranjang</button>
                         <a href="#" @click="ModalWA(item)" v-if="config.WA"
                             class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap">
                             <i class="fa-brands fa-whatsapp"></i> WhatsApp
@@ -119,8 +119,8 @@
                             Wishlist
                         </a>
                         <a href="#" @click="ModalCart(item.id, item.price)" v-if="config.cart"
-                            class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap">Add
-                            to cart</a>
+                            class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap">
+                            Keranjang</a>
                         <a href="#" @click="ModalWA(item)" v-if="config.WA"
                             class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap">
                             <i class="fa-brands fa-whatsapp"></i>
@@ -140,8 +140,7 @@
                             Wishlist
                         </a>
                         <a href="#" v-if="config.cart"
-                            class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap opacity-70 cursor-not-allowed">Add
-                            to cart
+                            class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap opacity-70 cursor-not-allowed">Keranjang
                         </a>
                         <a href="#" @click="ModalWA(item)" v-if="config.WA"
                             class="block w-full py-1.5 px-2 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition text-xs md:text-base whitespace-nowrap">
@@ -327,11 +326,7 @@ export default {
         }
     },
     beforeCreate() {
-        axios.get('http://temancoret.admin.oraclesip.my.id/api/config/product',{
-            beforeRedirect:{
-                
-            }
-        })
+        axios.get('http://127.0.0.1:8000/api/config/product')
             .then(res => {
                 const configApp = res.data.data
                 for (let i = 0; i < configApp.length; i++) {
@@ -393,7 +388,7 @@ export default {
         async addToCart(productID, priceProduct) {
 
             if (this.loggedIn) {
-                axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
+                axios.get('http://127.0.0.1:8000/api/user', {
                     headers: { Authorization: 'Bearer ' + this.access_token }
                 })
                     .then(res => {
@@ -408,7 +403,7 @@ export default {
                         }
                         // Send Data To Cart Database
                         axios({
-                            url: 'http://temancoret.admin.oraclesip.my.id/api/Cart/store',
+                            url: 'http://127.0.0.1:8000/api/Cart/store',
                             method: 'post',
                             data: params,
                             responseType: 'json',
@@ -440,7 +435,7 @@ export default {
         },
         addWishlist(productID) {
             if (this.loggedIn) {
-                axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
+                axios.get('http://127.0.0.1:8000/api/user', {
                     headers: { Authorization: 'Bearer ' + this.access_token }
                 })
                     .then(res => {
@@ -448,7 +443,7 @@ export default {
                         const UserData = res.data;
 
                         // Send Data To Cart Database
-                        axios.post('http://temancoret.admin.oraclesip.my.id/api/Wishlist/store', {
+                        axios.post('http://127.0.0.1:8000/api/Wishlist/store', {
                             user_id: UserData.id,
                             product_id: productID,
                         }).then((res) => {
@@ -496,6 +491,11 @@ export default {
 
             const wa = "https://api.whatsapp.com/send?phone=6281222311396&text=" + text + "";
             window.location.href = wa;
+        },
+        addToDetail(item){
+            console.log(item)
+            // window.location.reload()
+            this.$router.push({ name: 'detailproduct', params: { name: item.name, id: item.id } })
         },
 
     },

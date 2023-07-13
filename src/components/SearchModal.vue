@@ -140,7 +140,7 @@ export default {
             this.findProduct(this.search)
         },
         findProduct(valueSearch) {
-            axios.get('http://temancoret.admin.oraclesip.my.id/api/products', {
+            axios.get('http://127.0.0.1:8000/api/products', {
                 params: {
                     slug: valueSearch,
                 }

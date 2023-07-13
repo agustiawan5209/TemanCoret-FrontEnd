@@ -54,7 +54,7 @@ export default {
     }
   },
   created() {
-    axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
+    axios.get('http://127.0.0.1:8000/api/user', {
       headers: { Authorization: 'Bearer ' + this.access_token }
     })
       .then(res => {
@@ -62,7 +62,7 @@ export default {
       }).catch(error => console.log(error))
   },
   mounted() {
-    axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
+    axios.get('http://127.0.0.1:8000/api/user', {
       headers: { Authorization: 'Bearer ' + this.access_token }
     })
       .then(res => {

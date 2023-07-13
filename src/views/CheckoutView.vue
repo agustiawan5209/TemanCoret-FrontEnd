@@ -159,11 +159,11 @@ export default {
                 let idProduk = this.Cart.map((item) => {
                     return item.product_id
                 })
-                axios.get('http://temancoret.admin.oraclesip.my.id/api/user', {
+                axios.get('http://127.0.0.1:8000/api/user', {
                     headers: { Authorization: 'Bearer ' + this.access_token }
                 })
                     .then((res) => {
-                        axios.post('http://temancoret.admin.oraclesip.my.id/api/checkout', {
+                        axios.post('http://127.0.0.1:8000/api/checkout', {
                             user_id: res.data.id,
                             name: this.name,
                             email: this.email,
